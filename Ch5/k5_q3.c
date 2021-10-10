@@ -45,7 +45,7 @@ int main(){
         while(*loop == 1)
         {
             fp = fopen("cheat.txt", "r");
-
+            printf("Keine Loop.\n");
             if(fp == NULL) {
                 printf("Datei konnte nicht geoeffnet werden.\n");
             }else {
