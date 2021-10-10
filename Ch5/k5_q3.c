@@ -7,15 +7,7 @@
 int main(){
     FILE *fp;
 
-    fp = fopen("cheat.txt", "w");
-
-    if(fp == NULL) {
-        printf("Datei konnte nicht geoeffnet werden.\n");
-    }else {
-        fputc(1, fp);
-        
-        fclose(fp);
-    }
+    remove("cheat.txt");
 
     int rc = fork();
     if(rc < 0) {
@@ -37,7 +29,9 @@ int main(){
     {
         bool *loop;
         *loop = 1;
-        while(*loop == 1)
+        int temp;
+
+        while(loop != 0)
         {
             fp = fopen("cheat.txt", "r");
 
@@ -45,7 +39,13 @@ int main(){
                 printf("Datei konnte nicht geoeffnet werden.\n");
             }else {
                 // komplette Datei zeichenweise ausgeben
-                *loop = (fgetc(fp) == '1');
+                while((temp = fgetc(fp))!=EOF)
+                {
+                    if(temp == 0)
+                    {
+                        *loop = 0;
+                    }
+                }
                 fclose(fp);
             }
         }
