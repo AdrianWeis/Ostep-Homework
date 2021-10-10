@@ -1,22 +1,19 @@
-#include <assert.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fcntl.h>
 
-int main() {
-    close(STDOUT_FILENO);
-    open("./k5_q2.txt", O_CREAT|O_WRONLY|O_TRUNC);
+int main(){
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");
         exit(1);
     } else if (rc == 0)
     {
-        printf("Hello");
+        printf("Hello\n");
     } else
     {
-        printf(" and Goodby");
+        spin();
+        printf("Goodby\n");
     }
 }

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int main(int argc,char *argv[]) {
+int main() {
     int *x;
     x = malloc(sizeof(int));
     assert(x != NULL);

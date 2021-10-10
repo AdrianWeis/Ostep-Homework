@@ -11,7 +11,8 @@ STD = c11
 
 TARGETS = \
 	k5_q2 \
-	k5_q1 
+	k5_q1 \
+	k5_q3
 
 %: %.c
 	$(CC) $(CFLAGS) -o $@ $<
