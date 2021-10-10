@@ -7,7 +7,7 @@
 int main(){
     FILE *fp;
 
-    remove("cheat.txt");
+    remove("./cheat.txt");
     if( remove( "cheat.txt" ) != 0 ){
         perror( "Error deleting file" );
     } else {
