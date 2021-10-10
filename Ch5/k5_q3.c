@@ -8,6 +8,11 @@ int main(){
     FILE *fp;
 
     remove("cheat.txt");
+    if( remove( "cheat.txt" ) != 0 ){
+        perror( "Error deleting file" );
+    } else {
+        puts( "File successfully deleted" );
+    }
 
     int rc = fork();
     if(rc < 0) {
@@ -30,7 +35,7 @@ int main(){
         fp = fopen("cheat.txt", "w");
         fclose(fp);
 
-        bool loop = 1;
+        int loop = 1;
         int temp;
 
         while(loop != 0)
