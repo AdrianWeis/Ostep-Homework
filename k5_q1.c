@@ -16,14 +16,14 @@ int main(int argc,char *argv[]) {
         exit(1);
     } else if (rc == 0)
     {
-        printf("Current Value of x=%d\n", x);
+        printf("Current Value of x=%d\n", *x);
         *x = *x - 1;
-        printf("Value Change to:%d\n",x);
+        printf("Value Change to:%d\n",*x);
     } else
     {
-        printf("Current Value of x=%d\n", x);
+        printf("Current Value of x=%d\n", *x);
         *x = 42;
-        printf("Value Change to:%d\n",x);
+        printf("Value Change to:%d\n", *x);
     }
     return 0;
 }
