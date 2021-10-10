@@ -13,12 +13,6 @@ int main(){
 
     FILE *fp;
 
-    if( remove( "./cheat.txt" ) != 0 ){
-        perror( "Error deleting file" );
-    } else {
-        puts( "File successfully deleted" );
-    }
-
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");
@@ -61,6 +55,8 @@ int main(){
         }
         printf("Goodby\n");
     }
+
+    remove("./cheat.txt");
     free(loop);
     return 0;
 }
