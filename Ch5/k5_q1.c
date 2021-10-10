@@ -25,5 +25,6 @@ int main(int argc,char *argv[]) {
         *x = 42;
         printf("Value Change to:%d\n", *x);
     }
+    free(x);
     return 0;
 }
