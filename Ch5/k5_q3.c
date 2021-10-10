@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <assert.h>
 
 int main(){
     int *loop;
