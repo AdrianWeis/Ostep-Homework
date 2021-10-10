@@ -2,10 +2,10 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 int main(){
     FILE *fp;
-    int i;
 
     fp = fopen("cheat.txt", "w");
 
