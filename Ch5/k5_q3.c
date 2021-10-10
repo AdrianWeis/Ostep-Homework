@@ -7,7 +7,7 @@
 int main(){
     int *loop;
     loop = malloc(sizeof(int));
-    assert(x != NULL);
+    assert(loop != NULL);
     *loop = 1;
 
     FILE *fp;
@@ -41,7 +41,7 @@ int main(){
 
         int temp;
 
-        while(loop == 1)
+        while(*loop == 1)
         {
             fp = fopen("cheat.txt", "r");
 
@@ -61,4 +61,6 @@ int main(){
         }
         printf("Goodby\n");
     }
+    free(loop);
+    return 0;
 }
