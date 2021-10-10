@@ -5,6 +5,11 @@
 #include <stdbool.h>
 
 int main(){
+    int *loop;
+    loop = malloc(sizeof(int));
+    assert(x != NULL);
+    *loop = 1;
+
     FILE *fp;
 
     if( remove( "./cheat.txt" ) != 0 ){
@@ -34,10 +39,9 @@ int main(){
         fp = fopen("cheat.txt", "w");
         fclose(fp);
 
-        int loop = 1;
         int temp;
 
-        while(loop != 0)
+        while(loop == 1)
         {
             fp = fopen("cheat.txt", "r");
 
@@ -49,7 +53,7 @@ int main(){
                 {
                     if(temp == 65)
                     {
-                        loop = 0;
+                        *loop = 0;
                     }
                 }
                 fclose(fp);
