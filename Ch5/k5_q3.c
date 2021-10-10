@@ -25,6 +25,7 @@ int main(){
         exit(1);
     } else if (rc == 0)
     {
+        printf("Hello\n");
         fp = fopen("cheat.txt", "w");
 
         if(fp == NULL) {
@@ -34,7 +35,6 @@ int main(){
             
             fclose(fp);
         }
-        printf("Hello\n");
     } else
     {
         fp = fopen("cheat.txt", "w");
@@ -45,7 +45,6 @@ int main(){
         while(*loop == 1)
         {
             fp = fopen("cheat.txt", "r");
-            printf("Keine Loop.\n");
             if(fp == NULL) {
                 printf("Datei konnte nicht geoeffnet werden.\n");
             }else {
