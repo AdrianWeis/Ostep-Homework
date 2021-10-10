@@ -20,7 +20,7 @@ int main(){
         if(fp == NULL) {
             printf("Datei konnte nicht geoeffnet werden.\n");
         }else {
-            fputc(0, fp);
+            fputc(1, fp);
             
             fclose(fp);
         }
@@ -43,7 +43,7 @@ int main(){
                 // komplette Datei zeichenweise ausgeben
                 while((temp = fgetc(fp))!=EOF)
                 {
-                    if(temp == 0)
+                    if(temp == 1)
                     {
                         loop = 0;
                     }
