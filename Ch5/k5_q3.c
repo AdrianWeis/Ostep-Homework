@@ -7,8 +7,7 @@
 int main(){
     FILE *fp;
 
-    remove("./cheat.txt");
-    if( remove( "cheat.txt" ) != 0 ){
+    if( remove( "./cheat.txt" ) != 0 ){
         perror( "Error deleting file" );
     } else {
         puts( "File successfully deleted" );
@@ -25,7 +24,7 @@ int main(){
         if(fp == NULL) {
             printf("Datei konnte nicht geoeffnet werden.\n");
         }else {
-            fputc(1, fp);
+            fputc(65, fp);
             
             fclose(fp);
         }
@@ -48,7 +47,7 @@ int main(){
                 // komplette Datei zeichenweise ausgeben
                 while((temp = fgetc(fp))!=EOF)
                 {
-                    if(temp == 1)
+                    if(temp == 65)
                     {
                         loop = 0;
                     }
