@@ -27,8 +27,10 @@ int main(){
         printf("Hello\n");
     } else
     {
-        bool *loop;
-        *loop = 1;
+        fp = fopen("cheat.txt", "w");
+        fclose(fp);
+
+        bool loop = 1;
         int temp;
 
         while(loop != 0)
@@ -43,7 +45,7 @@ int main(){
                 {
                     if(temp == 0)
                     {
-                        *loop = 0;
+                        loop = 0;
                     }
                 }
                 fclose(fp);
