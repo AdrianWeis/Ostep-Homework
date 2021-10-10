@@ -11,7 +11,10 @@ STD = c11
 
 TARGETS = \
 	k5_q2 \
-	k5_q1 \
+	k5_q1 
+
+$(TARGETS): $(TARGETS).o
+	$(CC) $(CFLAGS) -o $@ $^
 
 .PHONY: all clean cppcheck
 
@@ -20,8 +23,8 @@ all: $(TARGETS)
 clean:
 	rm -f $(TARGETS) $(TARGETS).o
 
-$(TARGETS): $(TARGETS).o
-	$(CC) $(CFLAGS) -o $@ $^
-
 cppcheck: $(TARGETS).c
 	$(CPPCHECK) $^
+
+k5_q1.o: k5_q1.c
+k5_q2.o: k5_q2.c 
