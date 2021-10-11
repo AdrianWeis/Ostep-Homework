@@ -11,14 +11,14 @@ int main() {
         exit(1);
     } else if (rc == 0)
     {
-        int rc_wait = wait(NULL);
-        printf("Return of wait:%d",rc_wait);
+        //int rc_wait = wait(NULL);
+        //printf("Return of wait:%d",rc_wait);
         printf("Hello");
     } else
     {
-        //int rc_wait = wait(NULL);
+        int rc_wait = wait(NULL);
         printf(" and Goodby\n");
-        //printf("Return of wait:%d",rc_wait);
+        printf("Return of wait:%d",rc_wait);
     }
     return(0);
 }
