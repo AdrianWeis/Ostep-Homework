@@ -6,7 +6,7 @@
 
 int main() {
 
-    int filedes[2],n;
+    int filedes[2];
     char buffer[256];
     if (pipe (filedes) < 0)
     {
@@ -23,9 +23,11 @@ int main() {
     {
         close(filedes[0]);
         dup2(1,filedes[1]);
-        char temp[1];
+        char temp[2];
         temp[0] = 'H';
         temp[1] = 'i';
+        temp[2] = '\n';
+        printf("test\n")
         write(filedes[1],temp,64);
     } 
     else
