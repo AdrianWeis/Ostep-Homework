@@ -19,7 +19,7 @@ int main() {
     {
         int rc_wait = wait(NULL);
         printf(" and Goodby\n");
-        fprintf("Return of wait:%d",rc_wait);
+        fprintf("Return of wait:%d\n",rc_wait);
     }
     return(0);
 }
