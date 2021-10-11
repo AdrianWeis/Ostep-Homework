@@ -10,7 +10,7 @@
 int main()
 {
     struct timespec loopStart,loopEnd,clockChildStart,clockChildEnd,clockParentStart,clockParentEnd;
-    int iterations = 10000000; //10^9 war zu viel...
+    int iterations = 1000000; //10^9 war zu viel...
     int pipeFd1[2], pipeFd2[2];
 
     cpu_set_t mask;
@@ -57,7 +57,7 @@ int main()
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildEnd);
 
         long double avrChildTime = ((long double) clockChildEnd.tv_nsec - (long double) clockChildStart.tv_nsec)/(long double) iterations;
-        avrChildTime -= avrLoopTime;
+        avrChildTime = avrChildTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", avrChildTime);
     
@@ -72,7 +72,7 @@ int main()
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentEnd);
 
         long double avrParentTime = ((long double) clockParentEnd.tv_nsec - (long double) clockParentStart.tv_nsec)/(long double) iterations;
-        avrParentTime -= avrLoopTime;
+        avrParentTime = avrParentTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
         
