@@ -54,8 +54,8 @@ int main()
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentStart);
         for(int i = 0; i < iterations; i++)
         {
-            read(pipeFd1[0],NULL,0);
-            write(pipeFd2[1],NULL,0);
+            read(pipeFd2[0],NULL,0);
+            write(pipeFd1[1],NULL,0);
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentEnd);
     }
