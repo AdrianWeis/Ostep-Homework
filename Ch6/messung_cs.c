@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <sched.h>
+#include <sys/wait.h>
 
 int main()
 {
