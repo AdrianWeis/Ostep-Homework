@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <sched.h>
 
 int main()
 {
