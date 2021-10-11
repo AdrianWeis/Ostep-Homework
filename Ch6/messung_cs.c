@@ -61,7 +61,7 @@ int main()
 
         long double start = (long double) (clockChildStart.tv_sec * secToNs + clockChildStart.tv_nsec);
         long double end = (long double) (clockChildEnd.tv_sec * secToNs + clockChildEnd.tv_nsec);
-        long double avrParentTime = (end - star)/(long double) iterations;
+        long double avrChildTime = (end - start)/(long double) iterations;
         avrChildTime = avrChildTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", avrChildTime);
@@ -78,7 +78,7 @@ int main()
 
         long double start = (long double) (clockParentStart.tv_sec * secToNs + clockParentStart.tv_nsec);
         long double end = (long double) (clockParentEnd.tv_sec * secToNs + clockParentEnd.tv_nsec);
-        long double avrParentTime = (end - star)/(long double) iterations;
+        long double avrParentTime = (end - start)/(long double) iterations;
         avrParentTime = avrParentTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
