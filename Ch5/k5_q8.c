@@ -44,7 +44,7 @@ int main() {
             printf("Sollte vor test stehen");
             dup2(0,filedes[0]);
             err1 = read(filedes[0],buffer,12);
-            if (err1 = -1)
+            if (err1 == -1)
             {
                 printf("reading error");
                 exit(-1);
