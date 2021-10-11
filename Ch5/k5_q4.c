@@ -49,21 +49,21 @@ int main(int argc, char*argv[]) {
             char* myargs[2];
             myargs[0] = strdup("/bin/ls");
             myargs[1] = NULL;
-            execl(myargs[0],myargs[1]);
+            execl(myargs[0],"",NULL);
         }
         else if (strtol(argv[1], &p, 10)==5)
         {
             char* myargs[2];
             myargs[0] = strdup("/bin/ls");
             myargs[1] = NULL;
-            execle(myargs[0],myargs[1],NULL);
+            execle(myargs[0],"",NULL,NULL);
         }
         else if (strtol(argv[1], &p, 10)==0)
         {
             char* myargs[2];
             myargs[0] = strdup("ls");
             myargs[1] = NULL;
-            execlp(myargs[0],myargs[1]);
+            execlp(myargs[0],"",NULL);
         } 
         else
         {
