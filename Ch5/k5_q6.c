@@ -14,10 +14,10 @@ int main() {
     {
         //int rc_wait = wait(NULL);
         //printf("Return of wait:%d",rc_wait);
-        printf("Hello");
+        printf("Hello\n");
     } else
     {
-        int rc_wait = waitpid(rc,&wstatus,WNOHANG);
+        int rc_wait = waitpid(rc,&wstatus,0);
         printf(" and Goodby\n");
         printf("Return of wait:%d\n",rc_wait);
     }
