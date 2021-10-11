@@ -7,7 +7,7 @@
 int main() {
 
     int filedes[2], err1;
-    char buffer[12];
+    char buffer[22];
 
     if (pipe (filedes) < 0)
     {
@@ -33,6 +33,8 @@ int main() {
     } 
     else
     {
+        wait(NULL);
+
         int rc2 = fork();
         if(rc2 < 0) {
             fprintf(stderr, "Fork failed\n");
@@ -43,7 +45,7 @@ int main() {
             close(filedes[1]);
             printf("Sollte vor test stehen");
             dup2(0,filedes[0]);
-            err1 = read(filedes[0],buffer,12);
+            err1 = read(STDIN_FILENO,buffer,22);
             if (err1 == -1)
             {
                 printf("reading error");
