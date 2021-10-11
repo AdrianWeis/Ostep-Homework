@@ -28,7 +28,7 @@ int main() {
         temp[1] = 'i';
         temp[2] = '\n';
         printf("test\n");
-        write(filedes[1],temp,64);
+        write(filedes[1],temp,12);
     } 
     else
     {
@@ -41,7 +41,7 @@ int main() {
         {
             close(filedes[1]);
             dup2(0,filedes[0]);
-            read(filedes[0],buffer,64);
+            read(filedes[0],buffer,12);
             printf("%s\n",buffer);
         } 
         else
