@@ -56,7 +56,7 @@ int main()
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildEnd);
 
-        printf("Ende :%f\nStart%f\n",clockChildEnd.tv_nsec,clockChildStart.tv_nsec);
+        printf("Ende :%ld\nStart%ld\n",clockChildEnd.tv_nsec,clockChildStart.tv_nsec);
         long double avrChildTime = ((long double) clockChildEnd.tv_nsec - (long double) clockChildStart.tv_nsec)/(long double) iterations;
         avrChildTime = avrChildTime - avrLoopTime;
 
@@ -72,7 +72,7 @@ int main()
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentEnd);
 
-        printf("Ende :%f\nStart%f\n",clockParentEnd.tv_nsec,clockParentStart.tv_nsec);
+        printf("Ende :%ld\nStart%ld\n",clockParentEnd.tv_nsec,clockParentStart.tv_nsec);
         long double avrParentTime = ((long double) clockParentEnd.tv_nsec - (long double) clockParentStart.tv_nsec)/(long double) iterations;
         avrParentTime = avrParentTime - avrLoopTime;
 
