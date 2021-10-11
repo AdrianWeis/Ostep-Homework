@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
+#define _GNU_SOURCE 
 
 int main() {
 
