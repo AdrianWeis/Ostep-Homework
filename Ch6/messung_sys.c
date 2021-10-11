@@ -15,7 +15,7 @@ int main()
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopEnd);
 
-    long double avrLoopTime = ((long double) (loopEnd.tv_sec * secToNs + loopEnd.tv_nsec) - (long double) (loopStart.tv_sec * secToNs + loopStart.tv_nsec)/(long double) iterations;
+    long double avrLoopTime = ((long double) (loopEnd.tv_sec * secToNs + loopEnd.tv_nsec) - (long double) (loopStart.tv_sec * secToNs + loopStart.tv_nsec))/(long double) iterations;
     
     clock_gettime(CLOCK_MONOTONIC_RAW,&clockStart);
     for(int i = 0; i < iterations; i++)
