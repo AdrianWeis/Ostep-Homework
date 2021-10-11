@@ -15,7 +15,8 @@ int main()
     int secToNs = 1000000000;
 
     int pipeFd1[2], pipeFd2[2];
-
+    
+    //Potenziele Fehlerquelle, funktionsweise nachprüfen, evtl. im kind und parent setzen
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(7, &mask);
