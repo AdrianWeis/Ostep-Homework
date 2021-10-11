@@ -42,6 +42,7 @@ int main() {
             close(filedes[1]);
             dup2(0,filedes[0]);
             read(filedes[0],buffer,12);
+            printf("Sollte vor test stehen");
             printf("%s\n",buffer);
         } 
         else
