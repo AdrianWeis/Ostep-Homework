@@ -40,9 +40,9 @@ int main() {
         else if (rc2 == 0)
         {
             close(filedes[1]);
+            printf("Sollte vor test stehen");
             dup2(0,filedes[0]);
             read(filedes[0],buffer,12);
-            printf("Sollte vor test stehen");
             printf("%s\n",buffer);
         } 
         else
