@@ -1,10 +1,8 @@
 #include <stdlib.h>
-#include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
 
 int main() {
-    int wstatus;
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");
