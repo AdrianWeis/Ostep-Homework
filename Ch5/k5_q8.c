@@ -30,11 +30,11 @@ int main() {
         temp[1] = 'i';
         temp[2] = '\n';
         printf("test\n");
-        err2 = write(filedes[1],temp,12);
+        /*err2 = write(filedes[1],temp,12);
         if(err2 == -1) {
             fprintf(stderr, "Write Failed\n");
             exit(1);
-        }
+        }*/
     } 
     else
     {
@@ -48,7 +48,7 @@ int main() {
         else if (rc2 == 0)
         {
             close(filedes[1]);
-            printf("Sollte vor test stehen");
+            printf("Sollte vor test stehen\n");
             dup2(filedes[0],0);
             err1 = read(STDIN_FILENO,buffer,22);
             if (err1 == -1)
