@@ -65,7 +65,7 @@ int main(int argc, char*argv[]) {
         } 
         else
         {
-            printf("Options only between 0-5")
+            printf("Options only between 0-5");
         }
         
     }
