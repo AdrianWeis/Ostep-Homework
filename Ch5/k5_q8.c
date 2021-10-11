@@ -6,9 +6,13 @@
 
 int main() {
 
-    int filedes[2];
+    int filedes[2],n;
     char buffer[256];
-    pipe(filedes);
+    if (pipe (filedes) < 0)
+    {
+      perror ("pipe");
+      exit (EXIT_FAILURE);
+    }
 
     int rc1 = fork();
     if(rc1 < 0) {
@@ -19,7 +23,10 @@ int main() {
     {
         close(filedes[0]);
         dup2(1,filedes[1]);
-        printf("Hi");
+        char temp[1];
+        temp[0] = 'H';
+        temp[1] = 'i';
+        write(fildes[1],temp,64);
     } 
     else
     {
