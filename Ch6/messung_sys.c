@@ -1,4 +1,6 @@
+#define _GNU_SOURCE
 #include <time.h>
+#include <stdio.h>
 
 int main()
 {
@@ -6,7 +8,7 @@ int main()
     int iterations = 1000000000;
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopStart);
-    for(int i = 0, i < iterations, i++)
+    for(int i = 0; i < iterations; i++)
     {
 
     }
@@ -14,4 +16,5 @@ int main()
 
     double avrLoopTime = (loopStart.tv_nsec - loopEnd.tv_nsec)/iterations;
     printf("Durchschnittliche Dauer einer Schleife in: %d nsec");
+    return 0;
 }
