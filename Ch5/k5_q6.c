@@ -16,7 +16,7 @@ int main() {
         printf("Hello");
     } else
     {
-        int rc_wait = waitpid(rc,WIFEXITED,WNOHANG);
+        int rc_wait = waitpid(rc,&wstatus,WNOHANG);
         printf(" and Goodby\n");
         printf("Return of wait:%d\n",rc_wait);
     }
