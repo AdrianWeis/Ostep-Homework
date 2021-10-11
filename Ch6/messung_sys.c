@@ -14,7 +14,7 @@ int main()
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopEnd);
 
-    double avrLoopTime = (loopStart.tv_nsec - loopEnd.tv_nsec)/iterations;
-    printf("Durchschnittliche Dauer einer Schleife in: %f nsec", avrLoopTime);
+    long double avrLoopTime = (loopStart.tv_nsec - loopEnd.tv_nsec);
+    printf("Durchschnittliche Dauer einer Schleife in: %Lf sec", avrLoopTime);
     return 0;
 }
