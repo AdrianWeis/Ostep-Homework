@@ -6,7 +6,7 @@
 int main()
 {
     struct timespec loopStart,loopEnd,clockStart,clockEnd;
-    int iterations = 30000000; //10^9 war zu viel...
+    int iterations = 20000000; //10^9 war zu viel...
     int secToNs = 1000000000;
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopStart);

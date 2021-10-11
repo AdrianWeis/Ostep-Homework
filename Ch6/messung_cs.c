@@ -12,6 +12,8 @@ int main()
 {
     struct timespec loopStart,loopEnd,clockChildStart,clockChildEnd,clockParentStart,clockParentEnd;
     int iterations = 1000000; //10^9 war zu viel...
+    int secToNs = 1000000000;
+
     int pipeFd1[2], pipeFd2[2];
 
     cpu_set_t mask;
@@ -39,8 +41,8 @@ int main()
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopEnd);
 
-    long double avrLoopTime = ((long double) loopEnd.tv_nsec - (long double) loopStart.tv_nsec)/(long double) iterations;
-
+    long double avrLoopTime = ((long double) (loopEnd.tv_sec * secToNs + loopEnd.tv_nsec) - (long double) (loopStart.tv_sec * secToNs + loopStart.tv_nsec))/(long double) iterations;
+    
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
 
     int rc = fork();
@@ -57,8 +59,9 @@ int main()
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildEnd);
 
-        printf("Ende :%ld\nStart%ld\n",clockChildEnd.tv_nsec,clockChildStart.tv_nsec);
-        long double avrChildTime = ((long double) clockChildEnd.tv_nsec - (long double) clockChildStart.tv_nsec)/(long double) iterations;
+        long double start = (long double) (clockChildStart.tv_sec * secToNs + clockChildStart.tv_nsec);
+        long double end = (long double) (clockChildEnd.tv_sec * secToNs + clockChildEnd.tv_nsec);
+        long double avrParentTime = (end - star)/(long double) iterations;
         avrChildTime = avrChildTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", avrChildTime);
@@ -73,8 +76,9 @@ int main()
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentEnd);
 
-        printf("Ende :%ld\nStart%ld\n",clockParentEnd.tv_nsec,clockParentStart.tv_nsec);
-        long double avrParentTime = ((long double) clockParentEnd.tv_nsec - (long double) clockParentStart.tv_nsec)/(long double) iterations;
+        long double start = (long double) (clockParentStart.tv_sec * secToNs + clockParentStart.tv_nsec);
+        long double end = (long double) (clockParentEnd.tv_sec * secToNs + clockParentEnd.tv_nsec);
+        long double avrParentTime = (end - star)/(long double) iterations;
         avrParentTime = avrParentTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
