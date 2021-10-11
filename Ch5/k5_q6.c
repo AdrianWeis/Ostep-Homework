@@ -18,7 +18,7 @@ int main() {
     {
         int rc_wait = waitpid(rc,WIFEXITED,WNOHANG);
         printf(" and Goodby\n");
-        fprintf("Return of wait:%d\n",rc_wait);
+        printf("Return of wait:%d\n",rc_wait);
     }
     return(0);
 }
