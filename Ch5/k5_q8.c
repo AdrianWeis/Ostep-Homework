@@ -6,8 +6,9 @@
 
 int main() {
 
-    int filedes[2];
-    char buffer[256];
+    int filedes[2], err1;
+    char buffer[12];
+
     if (pipe (filedes) < 0)
     {
       perror ("pipe");
@@ -42,7 +43,12 @@ int main() {
             close(filedes[1]);
             printf("Sollte vor test stehen");
             dup2(0,filedes[0]);
-            read(filedes[0],buffer,12);
+            err1 = read(filedes[0],buffer,12);
+            if (err1 = -1)
+            {
+                printf("reading error");
+                exit(-1);
+            }
             printf("%s\n",buffer);
         } 
         else
