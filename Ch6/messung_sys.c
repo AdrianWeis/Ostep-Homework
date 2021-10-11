@@ -24,7 +24,7 @@ int main()
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&clockEnd);
 
-    long double avrRead = ((long double) (clockEnd.tv_sec * secToNs + clockEnd.tv_nsec) - (long double) (clockStart.tv_sec * secToNs + clockStart.tv_nsec)/(long double) iterations;
+    long double avrRead = ((long double) (clockEnd.tv_sec * secToNs + clockEnd.tv_nsec) - (long double) (clockStart.tv_sec * secToNs + clockStart.tv_nsec))/(long double) iterations;
     avrRead = avrRead - avrLoopTime;
     
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
