@@ -1,8 +1,10 @@
 #define _GNU_SOURCE 
+#include <string.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <stdio.h>
 #include <unistd.h>
+
 
 
 int main() {
