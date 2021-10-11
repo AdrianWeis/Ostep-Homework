@@ -10,10 +10,10 @@ int main() {
     int filedes[2], err1, err2;
     char buffer[22];
 
-    if (pipe (filedes) < 0)
+    if (pipe(filedes) < 0)
     {
-      perror ("pipe");
-      exit (EXIT_FAILURE);
+      perror("pipe");
+      exit(EXIT_FAILURE);
     }
 
     int rc1 = fork();
@@ -24,7 +24,7 @@ int main() {
     else if (rc1 == 0)
     {
         close(filedes[0]);
-        dup2(1,filedes[1]);
+        dup2(filedes[1],1);
         char temp[2];
         temp[0] = 'H';
         temp[1] = 'i';
@@ -49,7 +49,7 @@ int main() {
         {
             close(filedes[1]);
             printf("Sollte vor test stehen");
-            dup2(0,filedes[0]);
+            dup2(filedes[0],0);
             err1 = read(STDIN_FILENO,buffer,22);
             if (err1 == -1)
             {
