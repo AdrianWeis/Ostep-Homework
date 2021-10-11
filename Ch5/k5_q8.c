@@ -7,7 +7,7 @@
 
 int main() {
 
-    int filedes[2], err1;
+    int filedes[2], err1, err2;
     char buffer[22];
 
     if (pipe (filedes) < 0)
@@ -30,7 +30,11 @@ int main() {
         temp[1] = 'i';
         temp[2] = '\n';
         printf("test\n");
-        write(filedes[1],temp,12);
+        err2 = write(filedes[1],temp,12);
+        if(err2 == -1) {
+            fprintf(stderr, "Write Failed\n");
+            exit(1);
+        }
     } 
     else
     {
