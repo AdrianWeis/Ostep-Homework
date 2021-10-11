@@ -27,7 +27,7 @@ int main() {
         temp[0] = 'H';
         temp[1] = 'i';
         temp[2] = '\n';
-        printf("test\n")
+        printf("test\n");
         write(filedes[1],temp,64);
     } 
     else
