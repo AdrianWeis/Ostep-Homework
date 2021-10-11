@@ -15,6 +15,8 @@ TARGETS = \
 	k5_q3 \
 	k5_q4
 
+REMOVE = k5_q2.txt
+
 %: %.c
 	$(CC) $(CFLAGS) -o $@ $<
 
@@ -23,7 +25,7 @@ TARGETS = \
 all: $(TARGETS)
 
 clean:
-	rm -f $(TARGETS) $(TARGETS).o
+	rm -f $(TARGETS) $(TARGETS).o $(REMOVE)
 
 cppcheck: $(TARGETS)
 	$(CPPCHECK) $^

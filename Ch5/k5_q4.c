@@ -5,9 +5,13 @@
 #include <stdio.h>
 #include <unistd.h>
 
+extern char **environ;
 
+int main(int argc, char*argv[]) {
 
-int main() {
+    if (argc != 2){
+        printf("Fehlerhafteraufruf: k5_q4 int");
+    }
 
     int rc = fork();
 
@@ -17,10 +21,53 @@ int main() {
     }
     else if (rc == 0)
     {
-        char* myargs[2];
-        myargs[0] = strdup("ls");
-        myargs[1] = NULL;
-        execvp(myargs[0],myargs);
+        if (strncmp(argv[1],"1", len(argv[1])))
+        {
+            char* myargs[2];
+            myargs[0] = strdup("ls");
+            myargs[1] = NULL;
+            execvp(myargs[0],myargs);
+        }
+        else if (strncmp(argv[1],"2", len(argv[1])))
+        {
+            char* myargs[2];
+            myargs[0] = strdup("ls");
+            myargs[1] = NULL;
+            execvpe(myargs[0],myargs,environ);
+        }
+        else if (strncmp(argv[1],"3", len(argv[1])))
+        {
+            char* myargs[2];
+            myargs[0] = strdup("/bin/ls");
+            myargs[1] = NULL;
+            execv(myargs[0],myargs);
+        }
+        else if (strncmp(argv[1],"4", len(argv[1])))
+        {
+            char* myargs[2];
+            myargs[0] = strdup("/bin/ls");
+            myargs[1] = NULL;
+            execl(myargs[0],myargs[1]);
+        }
+        else if (strncmp(argv[1],"5", len(argv[1])))
+        {
+            char* myargs[2];
+            myargs[0] = strdup("/bin/ls");
+            myargs[1] = NULL;
+            execle(myargs[0],myargs[1],NULL);
+        }
+        else if (strncmp(argv[1],"0", len(argv[1])))
+        {
+            char* myargs[2];
+            myargs[0] = strdup("ls");
+            myargs[1] = NULL;
+            execlp(myargs[0],myargs[1]);
+        } 
+        else
+        {
+            printf("Options only between 0-5")
+        }
+        
     }
     else
     {
