@@ -5,8 +5,7 @@
 #
 
 CC = gcc
-CFLAGS = -g -W -Wall -std=$(STD) -pedantic
-CPPCHECK = cppcheck --enable=warning,style --std=$(STD)
+CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic
 STD = c11
 
 TARGETS = \
@@ -21,12 +20,10 @@ REMOVE = k5_q2.txt
 %: %.c
 	$(CC) $(CFLAGS) -o $@ $<
 
-.PHONY: all clean cppcheck
+.PHONY: all clean
 
 all: $(TARGETS)
 
 clean:
 	rm -f $(TARGETS) $(TARGETS).o $(REMOVE)
 
-cppcheck: $(TARGETS)
-	$(CPPCHECK) $^
