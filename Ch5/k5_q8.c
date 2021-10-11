@@ -33,8 +33,7 @@ int main() {
             dup2(0,filedes[0]);
             pipe2(filedes[0],0);
             read(0,buffer,64);
-            strcpy(string,buffer);
-            printf("%s",string);
+            printf("%s",buffer);
         } 
         else
         {
