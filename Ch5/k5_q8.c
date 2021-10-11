@@ -34,7 +34,7 @@ int main() {
             pipe2(filedes[0],0);
             read(0,buffer,64);
             strcpy(string,buffer);
-            printf(string);
+            printf("%s",string);
         } 
         else
         {
