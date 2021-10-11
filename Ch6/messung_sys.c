@@ -6,7 +6,7 @@
 int main()
 {
     struct timespec loopStart,loopEnd,clockStart,clockEnd;
-    int iterations = 10000000; //10^9 war zu viel...
+    int iterations = 30000000; //10^9 war zu viel...
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopStart);
     for(int i = 0; i < iterations; i++)
@@ -25,6 +25,8 @@ int main()
     clock_gettime(CLOCK_MONOTONIC_RAW,&clockEnd);
 
     long double avrRead = ((long double) clockEnd.tv_nsec - (long double) clockStart.tv_nsec)/(long double) iterations;
+    avrRead -= avrLoopTime;
+    
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
     printf("Durchschnittliche Dauer eines 0ByteReads in: %Lf nsec\n", avrRead);
 
