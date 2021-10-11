@@ -17,7 +17,8 @@ TARGETS = \
 	k5_q6 \
 	k5_q7 \
 	k5_q8 \
-	pipetest
+	pipetest \
+	pipe
 
 REMOVE = k5_q2.txt
 
