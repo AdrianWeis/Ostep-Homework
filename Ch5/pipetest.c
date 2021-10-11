@@ -6,7 +6,6 @@
 #include <unistd.h>
 #define BLOCKSIZE 64 // bytes
 // write2() aus obigem Codeblock übernehmen
-static ssize_t write2(int, const void *, size_t);
 int main(int argc, char **argv) {
   // Zugriffsrechte für die neue Datei: -rw-rw-r--
   mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH;
@@ -26,7 +25,7 @@ int main(int argc, char **argv) {
       return EXIT_FAILURE;
   }
   while((n = read(fd_r, buffer, BLOCKSIZE)) > 0)
-      if(write2(fd_w, buffer, n) < 0)
+      if(write(fd_w, buffer, n) < 0)
           perror("Fehler bei write()");
   return EXIT_SUCCESS;
 }
