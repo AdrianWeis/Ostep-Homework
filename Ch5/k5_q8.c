@@ -8,7 +8,6 @@ int main() {
 
     int filedes[2];
     char buffer[256];
-    char *string[256];
 
     int rc1 = fork();
     if(rc1 < 0) {
@@ -17,7 +16,7 @@ int main() {
     }
     else if (rc1 == 0)
     {
-        dub2(1,filedes[1]);
+        dup2(1,filedes[1]);
         printf("Hi");
         pipe2(filedes[1],0);
     } 
