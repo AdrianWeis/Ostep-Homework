@@ -71,11 +71,12 @@ int main()
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentEnd);
 
+        printf("Ende :%f\nStart%f",clockParentEnd.tv_nsec,clockParentStart.tv_nsec)
         long double avrParentTime = ((long double) clockParentEnd.tv_nsec - (long double) clockParentStart.tv_nsec)/(long double) iterations;
         avrParentTime = avrParentTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
-        
+        wait(NULL);
     }
    
     return 0;
