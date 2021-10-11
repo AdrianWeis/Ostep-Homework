@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 int main() {
     int rc = fork();

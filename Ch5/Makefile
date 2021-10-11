@@ -13,7 +13,8 @@ TARGETS = \
 	k5_q2 \
 	k5_q1 \
 	k5_q3 \
-	k5_q4
+	k5_q4 \
+	k5_q5
 
 REMOVE = k5_q2.txt
 
