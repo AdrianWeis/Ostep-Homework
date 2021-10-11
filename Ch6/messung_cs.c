@@ -38,6 +38,10 @@ int main()
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopEnd);
 
+    long double avrLoopTime = ((long double) loopEnd.tv_nsec - (long double) loopStart.tv_nsec)/(long double) iterations;
+
+    printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
+
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");
@@ -51,6 +55,12 @@ int main()
             write(pipeFd2[1],NULL,0);
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildEnd);
+
+        long double avrChildTime = ((long double) clockChildEnd.tv_nsec - (long double) clockChildStart.tv_nsec)/(long double) iterations;
+        avrChildTime -= avrLoopTime;
+
+        printf("Durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", avrChildTime);
+    
     } else
     {
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentStart);
@@ -60,17 +70,13 @@ int main()
             write(pipeFd1[1],NULL,0);
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentEnd);
+
+        long double avrParentTime = ((long double) clockParentEnd.tv_nsec - (long double) clockParentStart.tv_nsec)/(long double) iterations;
+        avrParentTime -= avrLoopTime;
+
+        printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
+        
     }
-
-    long double avrLoopTime = ((long double) loopEnd.tv_nsec - (long double) loopStart.tv_nsec)/(long double) iterations;
-    long double avrChildTime = ((long double) clockChildEnd.tv_nsec - (long double) clockChildStart.tv_nsec)/(long double) iterations;
-    long double avrParentTime = ((long double) clockParentEnd.tv_nsec - (long double) clockParentStart.tv_nsec)/(long double) iterations;
-    avrChildTime -= avrLoopTime;
-    avrParentTime -= avrLoopTime;
-
-    printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
-    printf("Durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", avrChildTime);
-    printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
-
+   
     return 0;
 }
