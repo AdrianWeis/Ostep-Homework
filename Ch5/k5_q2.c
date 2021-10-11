@@ -18,4 +18,5 @@ int main() {
     {
         printf(" and Goodby");
     }
+    return(0);
 }
