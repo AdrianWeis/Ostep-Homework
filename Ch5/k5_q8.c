@@ -29,11 +29,11 @@ int main() {
         } 
         else if (rc2 == 0)
         {
-            printf("Who prints?")
+            printf("Who prints?");
             dup2(0,filedes[0]);
             pipe2(filedes[0],0);
             read(0,buffer,64);
-            printf("Who prints?")
+            printf("Who prints?");
             printf("%s",buffer);
         } 
         else
