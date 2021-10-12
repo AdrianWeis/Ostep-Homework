@@ -11,7 +11,7 @@
 int main()
 {
     struct timespec loopStart,loopEnd,clockChildStart,clockChildEnd,clockParentStart,clockParentEnd;
-    int iterations = 1000000; //10^9 war zu viel...
+    int iterations = 10000000; //10^9 war zu viel...
     int secToNs = 1000000000;
 
     int pipeFd1[2], pipeFd2[2];
