@@ -11,6 +11,7 @@
 int main()
 {
     struct timespec loopStart,loopEnd,clockChildStart,clockChildEnd,clockParentStart,clockParentEnd;
+    struct timespec forS,forE,readS,readE,writeS,writeE;
     int iterations = 10000000; //10^9 war zu viel...
     int secToNs = 1000000000;
 
@@ -31,6 +32,35 @@ int main()
       exit(EXIT_FAILURE);
     }
 
+    
+    clock_gettime(CLOCK_MONOTONIC_RAW,&forS);
+    for(int i = 0; i < iterations; i++)
+    {
+    }
+    clock_gettime(CLOCK_MONOTONIC_RAW,&forE);
+
+
+    long double avrForTime = ((long double) (forE.tv_sec * secToNs + forE.tv_nsec) - (long double) (forS.tv_sec * secToNs + forS.tv_nsec))/(long double) iterations;
+    
+    clock_gettime(CLOCK_MONOTONIC_RAW,&readS);
+    for(int i = 0; i < iterations; i++)
+    {
+        read(0,NULL,0);
+    }
+    clock_gettime(CLOCK_MONOTONIC_RAW,&readE);
+
+    
+    long double avrReadTime = ((long double) (readE.tv_sec * secToNs + readE.tv_nsec) - (long double) (readS.tv_sec * secToNs + readS.tv_nsec))/(long double) iterations;
+    
+    clock_gettime(CLOCK_MONOTONIC_RAW,&writeS);
+    for(int i = 0; i < iterations; i++)
+    {
+        write(0,NULL,0);
+    }
+    clock_gettime(CLOCK_MONOTONIC_RAW,&writeE);
+
+    long double avrWriteTime = ((long double) (writeE.tv_sec * secToNs + writeE.tv_nsec) - (long double) (writeS.tv_sec * secToNs + writeS.tv_nsec))/(long double) iterations;
+    
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopStart);
     for(int i = 0; i < iterations; i++)
     {
@@ -42,6 +72,7 @@ int main()
     long double avrLoopTime = ((long double) (loopEnd.tv_sec * secToNs + loopEnd.tv_nsec) - (long double) (loopStart.tv_sec * secToNs + loopStart.tv_nsec))/(long double) iterations;
     
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
+    printf("Differenz zu seperat testung: %Lf nsec", avrLoopTime-(avrReadTime-avrForTime)-(avrWriteTime-avrFortime)-avrFortime);
 
     int rc = fork();
     if(rc < 0) {
