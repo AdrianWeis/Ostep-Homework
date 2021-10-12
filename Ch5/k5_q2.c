@@ -14,7 +14,7 @@ int main() {
         exit(1);
     } else if (rc == 0)
     {
-        char ** a = "AaAa";
+        char a[] = "AaAa";
         for (int i; i < 100; i++)
         {
             write(fd,b,4);
@@ -22,7 +22,7 @@ int main() {
     } else
     {
         //dup2(fd,STDOUT_FILENO);
-        char ** b = "BbBb";
+        char b[] = "BbBb";
         for (int n; n < 100; n++)
         {
             write(fd,b,4);
