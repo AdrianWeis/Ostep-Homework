@@ -17,7 +17,7 @@ int main() {
         char a[] = "AaAa";
         for (int i; i < 100; i++)
         {
-            write(fd,b,4);
+            write(fd,a,4);
         }
     } else
     {
