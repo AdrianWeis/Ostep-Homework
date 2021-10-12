@@ -72,7 +72,9 @@ int main()
     long double avrLoopTime = ((long double) (loopEnd.tv_sec * secToNs + loopEnd.tv_nsec) - (long double) (loopStart.tv_sec * secToNs + loopStart.tv_nsec))/(long double) iterations;
     
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
-    printf("Differenz zu seperat testung: %Lf nsec", avrLoopTime-(avrReadTime-avrForTime)-(avrWriteTime-avrForTime)-avrForTime);
+    printf("Differenz zu seperat testung: %Lf nsec\n", (avrLoopTime-(avrReadTime-avrForTime)-(avrWriteTime-avrForTime)-avrForTime));
+
+    long double betterLoopTime = (avrReadTime-avrForTime)+(avrWriteTime-avrForTime)+avrForTime;
 
     int rc = fork();
     if(rc < 0) {
@@ -99,9 +101,11 @@ int main()
         long double start = (long double) (clockChildStart.tv_sec * secToNs + clockChildStart.tv_nsec);
         long double end = (long double) (clockChildEnd.tv_sec * secToNs + clockChildEnd.tv_nsec);
         long double avrChildTime = (end - start)/(long double) iterations;
+        long double betterChildTime = avrChildTime - betterLoopTime;
         avrChildTime = avrChildTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", avrChildTime);
+        printf("verbesserte durchschnittliche Dauer des Context-Switch vom Kind in: %Lf nsec\n", betterChildTime);
     
     } else
     {
@@ -121,9 +125,12 @@ int main()
         long double start = (long double) (clockParentStart.tv_sec * secToNs + clockParentStart.tv_nsec);
         long double end = (long double) (clockParentEnd.tv_sec * secToNs + clockParentEnd.tv_nsec);
         long double avrParentTime = (end - start)/(long double) iterations;
+        long double betterParentTime = avrParentTime - betterLoopTime;
         avrParentTime = avrParentTime - avrLoopTime;
 
         printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
+        printf("Verbesserte durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", betterParentTime);
+
         wait(NULL);
     }
    
