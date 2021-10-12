@@ -7,7 +7,7 @@
 
 int main() {
 
-    int filedes[2], err1, err2;
+    int filedes[2], err1;//, err2;
     char buffer[22];
 
     if (pipe(filedes) < 0)
@@ -25,10 +25,10 @@ int main() {
     {
         close(filedes[0]);
         dup2(filedes[1],1);
-        char temp[2];
+        /*char temp[2];
         temp[0] = 'H';
         temp[1] = 'i';
-        temp[2] = '\n';
+        temp[2] = '\n';*/
         printf("test\n");
         /*err2 = write(filedes[1],temp,12);
         if(err2 == -1) {
