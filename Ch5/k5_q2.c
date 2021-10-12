@@ -7,7 +7,7 @@
 
 int main() {
     close(STDOUT_FILENO);
-    open("./k5_q2.txt", O_CREAT|O_WRONLY|O_TRUNC);
+    open("./k5_q2.output", O_CREAT|O_WRONLY|O_TRUNC);
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");
@@ -24,7 +24,6 @@ int main() {
         {
             printf("BbBb");
         }
-        wait(NULL);
     }
     return(0);
 }
