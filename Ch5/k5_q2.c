@@ -36,7 +36,7 @@ int main() {
         {
             if(write(fd,b,4) == -1)
             {
-                fprintf(stderr,"Write failed\n")
+                fprintf(stderr,"Write failed\n");
             }
         }
         wait(NULL);
