@@ -61,7 +61,10 @@ int main()
             write(pipeFd2[1],NULL,0);
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildEnd);
-
+        
+        printf("What does tv_sec mean:%d\nAnd tv_nsec",clockChildEnd.tv_sec,clockChildEnd.tv_nsec);
+        printf("Versus Start tv_sec mean:%d\nAnd tv_nsec",clockChildStart.tv_sec,clockChildStart.tv_nsec);
+        
         long double start = (long double) (clockChildStart.tv_sec * secToNs + clockChildStart.tv_nsec);
         long double end = (long double) (clockChildEnd.tv_sec * secToNs + clockChildEnd.tv_nsec);
         long double avrChildTime = (end - start)/(long double) iterations;
