@@ -62,8 +62,8 @@ int main()
         }
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildEnd);
         
-        printf("What does tv_sec mean: %ld\nAnd tv_nsec: %ld\n",clockChildEnd.tv_sec,clockChildEnd.tv_nsec);
-        printf("Versus Start tv_sec mean: %ld\nAnd tv_nsec: %ld\n",clockChildStart.tv_sec,clockChildStart.tv_nsec);
+        //printf("What does tv_sec mean: %ld\nAnd tv_nsec: %ld\n",clockChildEnd.tv_sec,clockChildEnd.tv_nsec);
+        //printf("Versus Start tv_sec mean: %ld\nAnd tv_nsec: %ld\n",clockChildStart.tv_sec,clockChildStart.tv_nsec);
         
         long double start = (long double) (clockChildStart.tv_sec * secToNs + clockChildStart.tv_nsec);
         long double end = (long double) (clockChildEnd.tv_sec * secToNs + clockChildEnd.tv_nsec);
