@@ -28,7 +28,7 @@ int main() {
         {
             write(fd,b,4);
         }
-        wait(NULL)
+        wait(NULL);
     }
     return(0);
 }
