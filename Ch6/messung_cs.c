@@ -22,14 +22,14 @@ int main()
 
     if (pipe(pipeFd1) < 0)
     {
-      perror("pipe");
-      exit(EXIT_FAILURE);
+        perror("pipe");
+        exit(EXIT_FAILURE);
     }
 
     if (pipe(pipeFd2) < 0)
     {
-      perror("pipe");
-      exit(EXIT_FAILURE);
+        perror("pipe");
+        exit(EXIT_FAILURE);
     }
 
     
