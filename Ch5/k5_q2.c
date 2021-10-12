@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 int main() {
 
@@ -27,6 +28,7 @@ int main() {
         {
             write(fd,b,4);
         }
+        wait(NULL)
     }
     return(0);
 }
