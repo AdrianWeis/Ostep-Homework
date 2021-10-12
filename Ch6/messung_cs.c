@@ -87,8 +87,14 @@ int main()
         CPU_SET(1, &mask);
         sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
 
-        close(pipeFd1[1]);
-        close(pipeFd2[0]);
+        if(close(pipeFd1[1]) < 0)
+        {
+            fprintf(stderr,"Close failed\n");
+        }
+        if(close(pipeFd2[0]) < 0)
+        {
+            fprintf(stderr,"Close failed\n");
+        }
 
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildStart);
         for(int i = 0; i < iterations; i++)
@@ -117,8 +123,14 @@ int main()
         CPU_SET(1, &mask);
         sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
 
-        close(pipeFd1[0]);
-        close(pipeFd2[1]);
+        if(close(pipeFd1[0]) < 0)
+        {
+            fprintf(stderr,"Close failed\n");
+        }
+        if(close(pipeFd2[1]) < 0)
+        {
+            fprintf(stderr,"Close failed\n");
+        }
 
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentStart);
         for(int i = 0; i < iterations; i++)
@@ -137,7 +149,10 @@ int main()
         printf("Durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", avrParentTime);
         printf("Verbesserte durchschnittliche Dauer des Context-Switch von Eltern in: %Lf nsec\n", betterParentTime);
 
-        wait(NULL);
+        if(wait(NULL) < 0)
+        {
+            fprintf(stderr,"Wait failed\n");
+        }
     }
    
     return 0;
