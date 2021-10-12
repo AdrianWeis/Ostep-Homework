@@ -9,7 +9,10 @@ int main() {
         exit(1);
     } else if (rc == 0)
     {
-        close(STDOUT_FILENO);
+        if(close(STDOUT_FILENO) < 0)
+        {
+            fprintf(stderr,"Close Failed\n");
+        }
         printf("Hello\n");
     } else
     {

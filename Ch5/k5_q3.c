@@ -23,16 +23,26 @@ int main(){
         fp = fopen("cheat.txt", "w");
 
         if(fp == NULL) {
-            printf("Datei konnte nicht geoeffnet werden.\n");
+            fprintf(stderr,"fopen failed\n");
         }else {
+            
             fputc(65, fp);
             
-            fclose(fp);
+            if(fclose(fp) == EOF)
+            {
+                fprintf(stderr,"close failed\n");
+            }
         }
     } else
     {
         fp = fopen("cheat.txt", "w");
-        fclose(fp);
+        if(fp==NULL) {
+            fprintf(stderr,"fopen failed\n");
+        }
+        if(fclose(fp) == EOF)
+        {
+            fprintf(stderr,"close failed\n");
+        }
 
         int temp;
 
@@ -40,7 +50,7 @@ int main(){
         {
             fp = fopen("cheat.txt", "r");
             if(fp == NULL) {
-                printf("Datei konnte nicht geoeffnet werden.\n");
+                fprintf(stderr,"Datei konnte nicht geoeffnet werden.\n");
             }else {
                 // komplette Datei zeichenweise ausgeben
                 while((temp = fgetc(fp))!=EOF)
@@ -50,13 +60,20 @@ int main(){
                         *loop = 0;
                     }
                 }
-                fclose(fp);
+                
+                if(fclose(fp) == EOF)
+                {
+                    fprintf(stderr,"close failed\n");
+                }
             }
         }
         printf("Goodby\n");
     }
 
-    remove("./cheat.txt");
+    if(remove("./cheat.txt") < 0)
+    {
+        fprintf(stderr,"Remove failed");
+    }
     free(loop);
     return 0;
 }

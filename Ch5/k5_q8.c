@@ -23,8 +23,14 @@ int main() {
     }
     else if (rc1 == 0)
     {
-        close(filedes[0]);
-        dup2(filedes[1],1);
+        if(close(filedes[0]) < 0)
+        {
+            fprintf(stderr,"Close Failed\n");
+        }
+        if(dup2(filedes[1],1)< 0)
+        {
+            fprintf(stderr,"dup2 failed\n");
+        }
         /*char temp[2];
         temp[0] = 'H';
         temp[1] = 'i';
@@ -38,7 +44,10 @@ int main() {
     } 
     else
     {
-        wait(NULL);
+        if(wait(NULL) < 0)
+        {
+            fprintf(stderr,"Wait failed\n");
+        }
 
         int rc2 = fork();
         if(rc2 < 0) {
@@ -47,9 +56,15 @@ int main() {
         } 
         else if (rc2 == 0)
         {
-            close(filedes[1]);
+            if(close(filedes[1]) < 0)
+            {
+                fprintf(stderr,"Close Failed\n");
+            }
             printf("Sollte vor test stehen\n");
-            dup2(filedes[0],0);
+            if(dup2(filedes[0],0) < 0)
+            {
+                fprintf(stderr,"dup2 failed\n");
+            }
             err1 = read(STDIN_FILENO,buffer,22);
             if (err1 == -1)
             {

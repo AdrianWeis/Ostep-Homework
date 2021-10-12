@@ -9,6 +9,11 @@
 int main() {
 
     int fd = open("./k5_q2.txt", O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
+    if(fd == -1)
+    {
+        fprintf(stderr, "Open failed\n");
+    }
+
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");
@@ -18,7 +23,10 @@ int main() {
         char a[] = "AaAa";
         for (int i; i < 100; i++)
         {
-            write(fd,a,4);
+            if(write(fd,a,4) == -1)
+            {
+                fprintf(stderr,"Write failed\n");
+            } 
         }
     } else
     {
@@ -26,7 +34,10 @@ int main() {
         char b[] = "BbBb";
         for (int n; n < 100; n++)
         {
-            write(fd,b,4);
+            if(write(fd,b,4) == -1)
+            {
+                fprintf(stderr,"Write failed\n")
+            }
         }
         wait(NULL);
     }

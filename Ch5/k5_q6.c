@@ -17,6 +17,10 @@ int main() {
     } else
     {
         int rc_wait = waitpid(rc,&wstatus,0);
+        if(rc_wait < 0)
+        {
+            fprintf(stderr,"Wait failed\n");
+        }
         printf(" and Goodby\n");
         printf("Return of wait:%d\n",rc_wait);
     }
