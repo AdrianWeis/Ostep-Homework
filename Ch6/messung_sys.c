@@ -5,7 +5,7 @@
 
 int main()
 {
-    struct timespec loopStart,loopEnd,clockStart,clockEnd;
+    struct timespec loopStart,loopEnd,clockStart,clockEnd, clockErrS,clockErrE;
     int iterations = 20000000; //10^9 war zu viel...
     int secToNs = 1000000000;
 
@@ -26,9 +26,23 @@ int main()
 
     long double avrRead = ((long double) (clockEnd.tv_sec * secToNs + clockEnd.tv_nsec) - (long double) (clockStart.tv_sec * secToNs + clockStart.tv_nsec))/(long double) iterations;
     avrRead = avrRead - avrLoopTime;
+
+    
+    clock_gettime(CLOCK_MONOTONIC_RAW,&clockErrS);
+    for(int i = 0; i < iterations; i++)
+    {
+        if(read(0,NULL,0) < 0)
+        {
+            fprintf(stderr,"Read Failed\n");
+        }
+    }
+    clock_gettime(CLOCK_MONOTONIC_RAW,&clockErrE);
+
+    long double avrErrRead = ((long double) (clockErrE.tv_sec * secToNs + clockErrE.tv_nsec) - (long double) (clockErrS.tv_sec * secToNs + clockErrS.tv_nsec))/(long double) iterations;
+    avrErrRead = avrErrRead - avrLoopTime;
     
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
     printf("Durchschnittliche Dauer eines 0ByteReads in: %Lf nsec\n", avrRead);
-
+    printf("Durchschnittliche Dauer eines 0ByteReads mit Fehler Behandlung in: %Lf nsec\n", avrErrRead);
     return 0;
 }
