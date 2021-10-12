@@ -13,10 +13,17 @@ int main() {
         exit(1);
     } else if (rc == 0)
     {
-        printf("Hello");
+        for (int i; i < 100; i++)
+        {
+            printf("AaAa");
+        }
     } else
     {
-        printf(" and Goodby\n");
+        for (int n; n < 100; n++)
+        {
+            printf("BbBb");
+        }
+        wait(NULL);
     }
     return(0);
 }
