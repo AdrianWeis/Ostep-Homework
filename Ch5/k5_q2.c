@@ -3,11 +3,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/wait.h>
 
 int main() {
 
-    int fd = open("./k5_q2.txt", O_CREAT|O_WRONLY|O_TRUNC);
+    int fd = open("./k5_q2.txt", O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
     int rc = fork();
     if(rc < 0) {
         fprintf(stderr, "Fork failed\n");

@@ -87,6 +87,9 @@ int main()
         CPU_SET(1, &mask);
         sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
 
+        close(pipeFd1[1]);
+        close(pipeFd2[0]);
+
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildStart);
         for(int i = 0; i < iterations; i++)
         {
@@ -113,6 +116,9 @@ int main()
         CPU_ZERO(&mask);
         CPU_SET(1, &mask);
         sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
+
+        close(pipeFd1[0]);
+        close(pipeFd2[1]);
 
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentStart);
         for(int i = 0; i < iterations; i++)
