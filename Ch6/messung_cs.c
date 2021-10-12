@@ -72,7 +72,7 @@ int main()
     long double avrLoopTime = ((long double) (loopEnd.tv_sec * secToNs + loopEnd.tv_nsec) - (long double) (loopStart.tv_sec * secToNs + loopStart.tv_nsec))/(long double) iterations;
     
     printf("Durchschnittliche Dauer einer Schleife in: %Lf nsec\n", avrLoopTime);
-    printf("Differenz zu seperat testung: %Lf nsec", avrLoopTime-(avrReadTime-avrForTime)-(avrWriteTime-avrFortime)-avrFortime);
+    printf("Differenz zu seperat testung: %Lf nsec", avrLoopTime-(avrReadTime-avrForTime)-(avrWriteTime-avrForTime)-avrForTime);
 
     int rc = fork();
     if(rc < 0) {
