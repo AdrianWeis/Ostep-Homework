@@ -17,10 +17,7 @@ int main()
     int pipeFd1[2], pipeFd2[2];
     
     //Potenziele Fehlerquelle, funktionsweise nachprüfen, evtl. im kind und parent setzen
-    cpu_set_t mask;
-    CPU_ZERO(&mask);
-    CPU_SET(7, &mask);
-    sched_setaffinity(0, sizeof(cpu_set_t), &mask);
+    
 
     if (pipe(pipeFd1) < 0)
     {
@@ -52,6 +49,11 @@ int main()
         exit(1);
     } else if (rc == 0)
     {
+        cpu_set_t mask;
+        CPU_ZERO(&mask);
+        CPU_SET(1, &mask);
+        sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
+
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockChildStart);
         for(int i = 0; i < iterations; i++)
         {
@@ -69,6 +71,11 @@ int main()
     
     } else
     {
+        cpu_set_t mask;
+        CPU_ZERO(&mask);
+        CPU_SET(1, &mask);
+        sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
+
         clock_gettime(CLOCK_MONOTONIC_RAW,&clockParentStart);
         for(int i = 0; i < iterations; i++)
         {
