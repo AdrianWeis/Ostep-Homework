@@ -20,8 +20,7 @@ for s in range(16):
         sys.argv = [arg_str.getvalue()]
         with redirect_stdout(f):
             with open("./lottery.py") as f:
-            code = compile(f.read(), "./lottery.py", 'exec')
-            exec(code, globals(), locals())
+                exec("./lottery.py")
         s = f.getvalue()
         job0At = s.find("JOB 0 DONE")
         job1At = s.find("JOB 1 DONE")
