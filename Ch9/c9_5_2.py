@@ -12,5 +12,6 @@ ax.set(xlabel='length of Jobs', ylabel='fairness',
        title='Test')
 ax.grid()
 
+
 fig.savefig("Figur.png")
 plt.show()
