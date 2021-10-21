@@ -10,12 +10,12 @@ STD = c11
 
 TARGET = c13_3
 
+% : %.c
+	$(CC) $(CFLAGS) -o $@ $<
+
 .PHONY: all clean
 
 all: TARGET
-
-% : %.c
-	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
 	rm -f $(TARGET).o
