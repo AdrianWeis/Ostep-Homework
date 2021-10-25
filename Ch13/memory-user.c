@@ -58,7 +58,7 @@ int main(int argc, char*argv[])
             if(i%10 == 0)
             {
                 clock_gettime(CLOCK_MONOTONIC_RAW,&now);
-                if (now.tvsec >= loopEnd.tvsec + secAnz)
+                if (now.tv_sec >= loopEnd.tv_sec + secAnz)
                 {
                     free(array);
                     return 1;
