@@ -15,6 +15,7 @@ int main(int argc, char*argv[])
     }
 
     int bAnz;
+    int mbTob = 1048576;
     char *p;
 
     errno = 0;
@@ -24,12 +25,12 @@ int main(int argc, char*argv[])
         fprintf(stderr,"Second Argument needs to be a Int\n");
         return -1;
     } else {
-        bAnz = conv/sizeof(int);
+        bAnz = conv*(mbTob/sizeof(int));
     }
 
-    printf("Anzahl anzulegender Integer:%d", bAnz);
+    printf("Anzahl anzulegender Integer:%d\n", bAnz);
 
-    int* array = calloc(bAnz, sizeof(int));
+    int* array = malloc(bAnz*sizeof(int));
     assert(array);
     
     printf("Realisierte Arraysize: %ld\n", sizeof(array));
@@ -42,4 +43,5 @@ int main(int argc, char*argv[])
             array[i];
         }
     }
+    free(array);
 }
