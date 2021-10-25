@@ -8,14 +8,14 @@ CC = gcc
 CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic
 STD = c11
 
-TARGET = c13_3
+TARGET = memory-user
 
-% : %.c
+%.o : %.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 .PHONY: all clean
 
-all: TARGET
+all: $(TARGET)
 
 clean:
 	rm -f $(TARGET).o
