@@ -43,10 +43,10 @@ int main(int argc, char*argv[])
 
     printf("Anzahl anzulegender Integer:%d\n", bAnz);
 
-    int* array = malloc(bAnz*sizeof(int));
+    int* array = calloc(bAnz,sizeof(int));
     assert(array);
     
-    printf("Realisierte Arraysize: %ld\n", sizeof(&array));
+    printf("Realisierte Arraysize: %ld\n", sizeof(*array));
     printf("Programm ID von memory-user:%d\n", getpid());
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&loopEnd);
