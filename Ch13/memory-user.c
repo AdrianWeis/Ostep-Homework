@@ -27,7 +27,7 @@ int main(int argc, char*argv[])
         bAnz = conv/sizeof(int);
     }
 
-    int array[] = (int) calloc(bAnz, sizeof(int));
+    int array[] = calloc(bAnz, sizeof(int));
     assert(array);
     
     printf("Realisierte Arraysize: %ld\n", sizeof(array));
