@@ -9,7 +9,7 @@
 
 int main(int argc, char*argv[])
 {
-    if (argc != 2){
+    if (argc != 3){
         printf("Fehlerhafteraufruf: memory-user byteAnzahl DauerSec\n");
         return -1;
     }
@@ -33,7 +33,7 @@ int main(int argc, char*argv[])
     conv = strtol(argv[2], &p, 10);
 
     if (errno != 0 || *p != '\0' || conv > INT_MAX || conv < INT_MIN) {
-        fprintf(stderr,"Second Argument needs to be a Int\n");
+        fprintf(stderr,"Third Argument needs to be a Int\n");
         return -1;
     } else {
         secAnz = conv;
