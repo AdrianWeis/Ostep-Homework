@@ -1,4 +1,4 @@
-#define BIGNUM = 1000;
+#define BIGNUM = 100000;
 #include <assert.h>
 #include <stdlib.h>
 
@@ -26,11 +26,12 @@ int main(int argc, char*argv[])
     array = (int) calloc(sizeOf(int)*bAnz);
     assert(array);
     
-    printf("Realisierte Arraysize: %d", sizeof(array));
+    printf("Realisierte Arraysize: %d\n", sizeof(array));
+    printf("Programm ID von memory-user:%d\n", getPid());
 
     for (int s = 0; s <= BIGNUM; s++)
     {
-        for (int i = 0; i <= BIGNUM; i++)
+        for (int i = 0; i <= bAnz; i++)
         {
             array[i];
         }
