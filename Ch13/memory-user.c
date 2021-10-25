@@ -1,5 +1,7 @@
-#define BIGNUM = 100000;
+#include <stdio.h>
 #include <assert.h>
+#include <string.h>
+#include <limits.h>
 #include <stdlib.h>
 
 int main(int argc, char*argv[])
@@ -16,7 +18,7 @@ int main(int argc, char*argv[])
     long conv = strtol(argv[1], &p, 10);
 
     if (errno != 0 || *p != '\0' || conv > INT_MAX || conv < INT_MIN) {
-        fprintf(stderr,"Second Argument needs to be a Int\n")
+        fprintf(stderr,"Second Argument needs to be a Int\n");
         return -1;
     } else {
         bAnz = conv/sizeOf(int);
@@ -29,7 +31,7 @@ int main(int argc, char*argv[])
     printf("Realisierte Arraysize: %d\n", sizeof(array));
     printf("Programm ID von memory-user:%d\n", getPid());
 
-    for (int s = 0; s <= BIGNUM; s++)
+    for (int s = 0; s <= 10000; s++)
     {
         for (int i = 0; i <= bAnz; i++)
         {
