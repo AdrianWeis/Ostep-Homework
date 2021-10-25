@@ -27,6 +27,8 @@ int main(int argc, char*argv[])
         bAnz = conv/sizeof(int);
     }
 
+    printf("Anzahl anzulegender Integer:%d", bAnz);
+
     int* array = calloc(bAnz, sizeof(int));
     assert(array);
     
