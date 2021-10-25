@@ -4,6 +4,8 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 int main(int argc, char*argv[])
 {
@@ -25,12 +27,11 @@ int main(int argc, char*argv[])
         bAnz = conv/sizeof(int);
     }
 
-    int *array;
-    array = (int) calloc(bAnz, sizeof(int));
+    int array[] = (int) calloc(bAnz, sizeof(int));
     assert(array);
     
     printf("Realisierte Arraysize: %ld\n", sizeof(array));
-    printf("Programm ID von memory-user:%d\n", getPid());
+    printf("Programm ID von memory-user:%d\n", getpid());
 
     for (int s = 0; s <= 10000; s++)
     {
