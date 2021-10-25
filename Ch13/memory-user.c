@@ -3,6 +3,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <errno.h>
 
 int main(int argc, char*argv[])
 {
@@ -21,14 +22,14 @@ int main(int argc, char*argv[])
         fprintf(stderr,"Second Argument needs to be a Int\n");
         return -1;
     } else {
-        bAnz = conv/sizeOf(int);
+        bAnz = conv/sizeof(int);
     }
 
     int *array;
-    array = (int) calloc(sizeOf(int)*bAnz);
+    array = (int) calloc(bAnz, sizeof(int));
     assert(array);
     
-    printf("Realisierte Arraysize: %d\n", sizeof(array));
+    printf("Realisierte Arraysize: %ld\n", sizeof(array));
     printf("Programm ID von memory-user:%d\n", getPid());
 
     for (int s = 0; s <= 10000; s++)
