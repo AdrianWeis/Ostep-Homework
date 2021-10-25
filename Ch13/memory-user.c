@@ -10,13 +10,15 @@
 int main(int argc, char*argv[])
 {
     if (argc != 2){
-        printf("Fehlerhafteraufruf: memory-user byteAnzahl\n");
+        printf("Fehlerhafteraufruf: memory-user byteAnzahl DauerSec\n");
         return -1;
     }
 
     int bAnz;
+    int secAnz;
     int mbTob = 1048576;
     char *p;
+    struct timespec loopEnd, now;
 
     errno = 0;
     long conv = strtol(argv[1], &p, 10);
@@ -28,20 +30,39 @@ int main(int argc, char*argv[])
         bAnz = conv*(mbTob/sizeof(int));
     }
 
+    conv = strtol(argv[2], &p, 10);
+
+    if (errno != 0 || *p != '\0' || conv > INT_MAX || conv < INT_MIN) {
+        fprintf(stderr,"Second Argument needs to be a Int\n");
+        return -1;
+    } else {
+        secAnz = conv;
+    }
+
     printf("Anzahl anzulegender Integer:%d\n", bAnz);
 
     int* array = malloc(bAnz*sizeof(int));
     assert(array);
     
-    printf("Realisierte Arraysize: %ld\n", sizeof(array));
+    printf("Realisierte Arraysize: %ld\n", sizeof(&array));
     printf("Programm ID von memory-user:%d\n", getpid());
 
-    for (int s = 0; s <= 10000; s++)
+    clock_gettime(CLOCK_MONOTONIC_RAW,&loopEnd);
+
+    while (1)
     {
         for (int i = 0; i <= bAnz; i++)
         {
             array[i];
+            if(i%10 == 0)
+            {
+                clock_gettime(CLOCK_MONOTONIC_RAW,&now);
+                if (now.tvsec >= loopEnd.tvsec + secAnz)
+                {
+                    free(array);
+                    return 1;
+                }
+            }
         }
     }
-    free(array);
 }
