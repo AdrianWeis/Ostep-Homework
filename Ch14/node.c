@@ -34,11 +34,11 @@ void add(daten* pointer, int data)
     void* test;
     if(pointer->laenge == 0)
     {
-        pointer->daten[0] = data;
+        pointer->daten = realloc(pointer->daten,sizeof(int));
         pointer->laenge++;
         return;
     }
-    test = realloc(pointer->daten,sizeof(int));
+    pointer->daten = realloc(pointer->daten,sizeof(int));
     assert(test != NULL);
     pointer->daten[pointer->laenge] = data;
     pointer->laenge++;
@@ -53,12 +53,11 @@ void printDaten(daten pointer)
 
 int main()
 {
-    int i[1] = {1}
     daten v1;
-    add(&v1,1);
-    daten v2 = {i,1};
-    //add(v2,2);
-    //add(v2,3);
+    add(v1,1);
+    daten v2;
+    add(v2,2);
+    add(v2,3);
     daten array[] = {v1,v2};
 
     printDaten(array[0]);

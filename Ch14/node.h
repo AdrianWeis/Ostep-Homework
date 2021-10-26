@@ -7,7 +7,7 @@
 
 struct Daten
 {
-    int daten[1];
+    int *daten;
     int laenge;
 };
 
