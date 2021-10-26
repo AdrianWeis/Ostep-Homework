@@ -14,7 +14,7 @@ int main()
     p[100] = 0;
 
     free(p);
-    printf("Test nach free an index 75:%ld\n", p[75]);
+    printf("Test nach free an index 75:%d\n", p[75]);
 
     printf("Dereferenzierungstest ergibt:%d\n",*p);
     printf("Größe des Pointers:%ld\n",sizeof(p));
