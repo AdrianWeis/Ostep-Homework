@@ -18,7 +18,7 @@ int main(int argc, char*argv[])
 
     int bAnz;
     int secAnz;
-    int mbTob = 1048576;
+    int mbToB = 1048576;
     char *p;
     struct timespec loopEnd, now;
 
@@ -62,7 +62,7 @@ int main(int argc, char*argv[])
         for (int i = 0; i <= bAnz; i++)
         {
             array[i];
-            if(i%10 == 0)
+            if(i%1000 == 0)
             {
                 clock_gettime(CLOCK_MONOTONIC_RAW,&now);
                 if (now.tv_sec >= loopEnd.tv_sec + secAnz)
