@@ -30,7 +30,7 @@ typedef struct Daten Daten;
     return size;
 }*/
 
-void add(Daten &pointer, int data)
+void add(Daten* pointer, int data)
 {
     struct Daten temp;
     if(pointer.laenge == 0)
@@ -45,7 +45,7 @@ void add(Daten &pointer, int data)
     return;
 }
 
-void printDaten(Daten& pointer)
+void printDaten(Daten* pointer)
 {
     printf("Anzahl der Daten = %d", pointer.laenge);
 }
