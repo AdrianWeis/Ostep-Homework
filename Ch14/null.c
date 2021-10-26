@@ -8,7 +8,7 @@ int main()
     p = malloc(sizeof(int));
     assert(p != NULL);
     *p = NULL;
-    printf("Dereferenzierungstest ergibt:%d",*p);
-    free(p);
+    printf("Dereferenzierungstest ergibt:%d\n",*p);
+    //free(p);
     return 0;
 }
