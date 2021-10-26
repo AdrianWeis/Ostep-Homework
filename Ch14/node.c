@@ -46,16 +46,16 @@ void add(daten* pointer, int data)
     return;
 }
 
-void printDaten(daten* pointer)
+void printDaten(daten pointer)
 {
-    printf("Anzahl der Daten = %d", pointer->laenge);
+    printf("Anzahl der Daten = %d", pointer.laenge);
 }
 
 int main()
 {
     int i[1] = {1}
-    daten v1 = {i,1};
-    //add(v1,1);
+    daten v1;
+    add(&v1,1);
     daten v2 = {i,1};
     //add(v2,2);
     //add(v2,3);
