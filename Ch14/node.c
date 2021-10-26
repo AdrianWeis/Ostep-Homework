@@ -48,7 +48,7 @@ void add(struct daten* pointer, int data)
 
 void printDaten(struct daten *pointer)
 {
-    printf("Anzahl der Daten = %d", pointer->laenge);
+    printf("Anzahl der Daten = %d\n", pointer->laenge);
 }
 
 int main()
