@@ -13,7 +13,7 @@ struct Daten
 
 typedef struct Daten daten;
 
-daten* add(daten *pointer, int data);
+void add(daten *pointer, int data);
 void printDaten(daten *pointer);
 
 #endif

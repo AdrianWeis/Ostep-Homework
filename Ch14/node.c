@@ -29,21 +29,20 @@
     return size;
 }*/
 
-daten* add(daten* pointer, int data)
+void add(daten* pointer, int data)
 {
-    daten temp;
+    void test;
     if(pointer->laenge == 0)
     {
         pointer->daten[0] = data;
         return pointer;
     }
-    temp.daten = realloc(pointer->daten,sizeof(int));
-    assert(temp.daten != NULL);
-    temp.laenge = pointer->laenge;
-    temp.daten[pointer->laenge] = data;
-    temp.laenge++;
+    test = realloc(pointer->daten,sizeof(int));
+    assert(test != NULL);
+    pointer->daten[pointer->laenge] = data;
+    pointer->laenge++;
 
-    return &temp;
+    return;
 }
 
 void printDaten(daten* pointer)
