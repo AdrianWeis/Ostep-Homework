@@ -10,7 +10,8 @@ STD = c11
 
 TARGET = \
 	null \
-	array
+	array \
+	node
 
 %.o : %.c
 	$(CC) $(CFLAGS) -o $@ $<
