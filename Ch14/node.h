@@ -11,9 +11,9 @@ struct Daten
     int laenge;
 };
 
-typedef struct Daten Daten;
+typedef struct Daten daten;
 
-void add(Daten *pointer, int data);
-void printDaten(Daten *pointer)
+void add(daten *pointer, int data);
+void printDaten(daten *pointer)
 
 #endif

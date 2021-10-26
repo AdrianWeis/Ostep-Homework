@@ -1,5 +1,4 @@
 #include "node.h"
-typedef struct Daten Daten;
 
 /*int getSize(Node &pointer)
 {
@@ -30,9 +29,9 @@ typedef struct Daten Daten;
     return size;
 }*/
 
-void add(Daten* pointer, int data)
+void add(daten* pointer, int data)
 {
-    struct Daten temp;
+    struct daten temp;
     if(pointer.laenge == 0)
     {
         pointer.data[0] = data;
@@ -45,19 +44,19 @@ void add(Daten* pointer, int data)
     return;
 }
 
-void printDaten(Daten* pointer)
+void printDaten(daten* pointer)
 {
     printf("Anzahl der Daten = %d", pointer.laenge);
 }
 
 int main()
 {
-    Daten *v1;
+    daten *v1;
     add(v1,1);
-    Daten *v2;
+    daten *v2;
     add(v2,2);
     add(v2,3);
-    Daten *array[] = {v1,v2};
+    daten *array[] = {v1,v2};
 
     printDaten(array[0]);
     printDaten(array[1]);
