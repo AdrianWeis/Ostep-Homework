@@ -43,9 +43,14 @@ int main(int argc, char*argv[])
 
     printf("Anzahl anzulegender Integer:%d\n", bAnz);
 
-    int* array = calloc(bAnz,sizeof(int));
+    int array[] = malloc(sizeof(int)*bAnz);
     assert(array);
     
+    for(int i = 0; i < bAnz;i++)
+    {
+        array[i] = i;
+    }
+
     printf("Realisierte Arraysize: %ld\n", sizeof(array));
     printf("Programm ID von memory-user:%d\n", getpid());
 
