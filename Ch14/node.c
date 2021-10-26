@@ -57,7 +57,7 @@ int main()
     Daten *v2;
     add(v2,2);
     add(v2,3);
-    Daten[] array = {v1,v2}
+    Daten array[] = {v1,v2};
 
     printDaten(array[0]);
     printDaten(array[1]);
