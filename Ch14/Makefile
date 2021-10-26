@@ -8,7 +8,9 @@ CC = gcc
 CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic
 STD = c11
 
-TARGET = null
+TARGET = \
+	null \
+	array
 
 %.o : %.c
 	$(CC) $(CFLAGS) -o $@ $<
