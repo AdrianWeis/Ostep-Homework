@@ -9,6 +9,9 @@ int main()
     assert(p != NULL);
     *p = NULL;
     printf("Dereferenzierungstest ergibt:%d\n",*p);
-    //free(p);
+    printf("Größe des Pointers:%ld\n",sizeof(p));
+    printf("Größe von Integern:%ld\n",sizeof(int));
+    printf("Größe des dereferenzierten Pointers:%ld\n",sizeof(*p));
+    free(p);
     return 0;
 }
