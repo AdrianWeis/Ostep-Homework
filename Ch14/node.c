@@ -53,14 +53,13 @@ void printDaten(struct daten *pointer)
 
 int main()
 {
-    struct daten pre = {(int*) malloc(sizeof(int)),0}
+    struct daten pre = {(int*) malloc(sizeof(int)),0};
     struct daten* v1 = &pre;
     add(v1,1);
     struct daten* v2 = &pre;
     add(v2,2);
     add(v2,3);
-    struct daten array[] = {v1,v2};
 
-    printDaten(&array[0]);
-    printDaten(&array[1]);
+    printDaten(v1);
+    printDaten(v2);
 }
