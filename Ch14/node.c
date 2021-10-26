@@ -29,7 +29,7 @@
     return size;
 }*/
 
-void add(daten* pointer, int data)
+void add(struct daten* pointer, int data)
 {
     void* test;
     if(pointer->laenge == 0)
@@ -46,7 +46,7 @@ void add(daten* pointer, int data)
     return;
 }
 
-void printDaten(daten pointer)
+void printDaten(struct daten *pointer)
 {
     printf("Anzahl der Daten = %d", pointer.laenge);
 }

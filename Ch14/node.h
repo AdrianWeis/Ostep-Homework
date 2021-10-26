@@ -5,15 +5,13 @@
 #include <assert.h>
 #include <stdlib.h>
 
-struct Daten
+struct daten
 {
     int *daten;
     int laenge;
 };
 
-typedef struct Daten daten;
-
-void add(daten *pointer, int data);
-void printDaten(daten *pointer);
+void add(struct daten *pointer, int data);
+void printDaten(struct daten *pointer);
 
 #endif
