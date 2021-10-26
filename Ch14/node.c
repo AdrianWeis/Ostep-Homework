@@ -54,12 +54,12 @@ void printDaten(struct daten *pointer)
 int main()
 {
     struct daten v1;
-    add(v1,1);
+    add(&v1,1);
     struct daten v2;
-    add(v2,2);
-    add(v2,3);
+    add(&v2,2);
+    add(&v2,3);
     struct daten array[] = {v1,v2};
 
-    printDaten(array[0]);
-    printDaten(array[1]);
+    printDaten(&array[0]);
+    printDaten(&array[1]);
 }
