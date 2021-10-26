@@ -35,7 +35,8 @@ void add(daten* pointer, int data)
     if(pointer->laenge == 0)
     {
         pointer->daten[0] = data;
-        return pointer;
+        pointer->laenge++;
+        return;
     }
     test = realloc(pointer->daten,sizeof(int));
     assert(test != NULL);
