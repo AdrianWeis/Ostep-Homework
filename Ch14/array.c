@@ -11,7 +11,7 @@ int main()
     {
         p[i]=i;
     }
-    p[100] = 1;
+    p[101] = 1;
 
     //free(p);
     printf("Dereferenzierungstest ergibt:%d\n",*p);
