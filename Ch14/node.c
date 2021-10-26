@@ -53,9 +53,10 @@ void printDaten(daten* pointer)
 
 int main()
 {
-    daten *v1 = {{1},1};
+    int i[1] = {1}
+    daten *v1 = {i,1};
     //add(v1,1);
-    daten *v2 = {{1},1};
+    daten *v2 = {i,1};
     //add(v2,2);
     //add(v2,3);
     daten *array[] = {v1,v2};
