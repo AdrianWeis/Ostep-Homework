@@ -18,4 +18,4 @@ TARGET = null
 all: $(TARGET)
 
 clean:
-	rm -f $(TARGET).o
+	rm -f $(TARGET).o $(TARGET)
