@@ -31,7 +31,7 @@
 
 void add(daten* pointer, int data)
 {
-    void test;
+    void* test;
     if(pointer->laenge == 0)
     {
         pointer->daten[0] = data;
@@ -53,10 +53,10 @@ void printDaten(daten* pointer)
 int main()
 {
     daten *v1;
-    v1 = add(v1,1);
+    add(v1,1);
     daten *v2;
-    v2 = add(v2,2);
-    v2 = add(v2,3);
+    add(v2,2);
+    add(v2,3);
     daten *array[] = {v1,v2};
 
     printDaten(array[0]);
