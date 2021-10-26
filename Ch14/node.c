@@ -31,22 +31,21 @@
 
 void add(daten* pointer, int data)
 {
-    struct daten temp;
-    if(pointer.laenge == 0)
+    if(pointer->laenge == 0)
     {
-        pointer.data[0] = data;
+        pointer->daten[0] = data;
         return;
     }
-    pointer.data = realloc(pointer.data,sizeof(int));
-    assert(temp != NULL);
-    temp.daten[temp.laenge] = data;
-    temp.laenge++;
+    pointer->daten = realloc(pointer->daten,sizeof(int));
+    assert(pointer->daten != NULL);
+    pointer->daten[pointer->laenge] = data;
+    pointer->laenge++;
     return;
 }
 
 void printDaten(daten* pointer)
 {
-    printf("Anzahl der Daten = %d", pointer.laenge);
+    printf("Anzahl der Daten = %d", pointer->laenge);
 }
 
 int main()
