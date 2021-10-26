@@ -13,7 +13,7 @@ TARGET = \
 	array \
 	node
 
-%.o : %.c
+% : %.o
 	$(CC) $(CFLAGS) -o $@ $<
 
 .PHONY: all clean
@@ -22,3 +22,5 @@ all: $(TARGET)
 
 clean:
 	rm -f $(TARGET).o $(TARGET)
+
+node.o: node.c node.h

@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <assert.h>
-#include <stdlib.h>
-
-struct Daten
-{
-    int daten[1];
-    int laenge;
-};
-
+#include "node.h"
 typedef struct Daten Daten;
 
 /*int getSize(Node &pointer)
