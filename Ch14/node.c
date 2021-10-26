@@ -31,7 +31,7 @@
 
 daten* add(daten* pointer, int data)
 {
-    daten *temp;
+    daten temp;
     if(pointer->laenge == 0)
     {
         pointer->daten[0] = data;
@@ -43,7 +43,7 @@ daten* add(daten* pointer, int data)
     temp.daten[pointer->laenge] = data;
     temp.laenge++;
 
-    return temp;
+    return &temp;
 }
 
 void printDaten(daten* pointer)
