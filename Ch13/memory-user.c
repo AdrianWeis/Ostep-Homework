@@ -43,7 +43,8 @@ int main(int argc, char*argv[])
 
     printf("Anzahl anzulegender Integer:%d\n", bAnz);
 
-    int array[] = malloc(sizeof(int)*bAnz);
+    int *array;
+    array = malloc(sizeof(int)*bAnz);
     assert(array);
     
     for(int i = 0; i < bAnz;i++)
