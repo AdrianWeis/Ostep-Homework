@@ -14,6 +14,6 @@ struct Daten
 typedef struct Daten daten;
 
 void add(daten *pointer, int data);
-void printDaten(daten *pointer)
+void printDaten(daten *pointer);
 
 #endif
