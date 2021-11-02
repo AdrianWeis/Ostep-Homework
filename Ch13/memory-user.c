@@ -62,7 +62,7 @@ int main(int argc, char*argv[])
         for (int i = 0; i <= bAnz; i++)
         {
             array[i];
-            if(i%1000 == 0)
+            if(i%100 == 0)
             {
                 clock_gettime(CLOCK_MONOTONIC_RAW,&now);
                 if (now.tv_sec >= loopEnd.tv_sec + secAnz)
