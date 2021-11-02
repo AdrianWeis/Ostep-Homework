@@ -16,8 +16,5 @@ int main()
     int rc2 = fork();
     printf("%d,%d\n",rc2, getpid());
 
-    int rc3 = fork();
-    printf("%d,%d\n",rc3, getpid());
-
     return 1;
 }

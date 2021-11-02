@@ -18,7 +18,9 @@ TARGETS = \
 	k5_q7 \
 	k5_q8 \
 	pipetest \
-	pipe
+	pipe \
+	test \
+	fork
 
 REMOVE = k5_q2.txt
 
