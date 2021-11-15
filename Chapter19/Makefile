@@ -16,6 +16,6 @@ TARGET = tlb
 all: $(TARGET)
 
 clean:
-	rm -f $(TARGET).o $(TARGET)
+	rm -f $(TARGET).o $(TARGET) out.txt
 
 tlb.o: tlb.c tlb.h
