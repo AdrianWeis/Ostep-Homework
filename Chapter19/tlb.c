@@ -86,13 +86,13 @@ int main(int argc, char *argv[])
     long overhead = measureOverhead(LOOPS, NUMPAGES, averageTime);
 
     long averagePage = measurePagingAverage(PAGESIZE, NUMPAGES, LOOPS);
-    long timeMinMax = measurePagingMinMax(PAGESIZE, NUMPAGES, LOOPS, averagePage);
+    //long timeMinMax = measurePagingMinMax(PAGESIZE, NUMPAGES, LOOPS, averagePage);
     long time = measurePaging(PAGESIZE, NUMPAGES, LOOPS, averagePage);
 
 
     printf("Time from Clock_Gettime: %ld\n", overhead);
     printf("Time for Page Swap Average: %ld\n", averagePage - overhead);
-    printf("Time for Page Swap with MinMax: %ld\n", timeMinMax - overhead);
+    //printf("Time for Page Swap with MinMax: %ld\n", timeMinMax - overhead);
     printf("Time for Page Swap with 60percent Range: %ld\n", time - overhead);
 
     FILE *fp;
