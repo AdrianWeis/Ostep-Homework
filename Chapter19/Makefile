@@ -1,16 +1,21 @@
 # Makefile
-# Author: Simon Kaemmer
+# Author: Simon Kaemmer + Adrian
 
 # Variablen
-CC = gcc -g
-CFLAGS = -W -Wall -Wpedantic
-RM = rm -f
+CC = gcc
+CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic
+STD = c11
 
-TARGET1 = tlb
+TARGET = tlb
 
+% : %.o
+	$(CC) $(CFLAGS) -o $@ $<
 
 .PHONY: all clean
 
-all: $(TARGET1)
+all: $(TARGET)
 
-clean: $(RM) $(TARGET1)
+clean:
+	rm -f $(TARGET).o $(TARGET)
+
+tlb.o: tlb.c tlb.h
