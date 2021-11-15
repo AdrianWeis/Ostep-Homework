@@ -102,7 +102,6 @@ long measurePaging(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
 long measurePagingMinMax(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
 {
     long counter = 0;
-    long temp = 0;
     long resultTemp = 0;
     long min = average;
     long minDistance = 0;
