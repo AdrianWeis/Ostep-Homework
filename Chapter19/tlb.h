@@ -89,7 +89,9 @@ long measurePaging(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
             resultTemp += temp;
             
         }
-        result += resultTemp/(NUMPAGES - counter);
+        if(NUMPAGES - counter > 0) {
+            result += resultTemp/(NUMPAGES - counter);
+        }
         resultTemp = 0;
         counter = 0;
     }
@@ -156,7 +158,9 @@ long measurePagingMinMax(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
             resultTemp += timeArray[j];
         }
 
-        result += resultTemp/(NUMPAGES - counter);
+        if(NUMPAGES - counter > 0) {
+            result += resultTemp/(NUMPAGES - counter);
+        }
         min = average;
         max = average;
         resultTemp = 0;
@@ -213,7 +217,9 @@ long measureOverhead(int loops, int numpages, long average)
             resultTemp += temp;
         }
 
-        result += resultTemp/(numpages - counter);
+        if(numpages - counter > 0) {
+            result += resultTemp/(numpages - counter);
+        }
         resultTemp = 0;
         counter = 0;
     }
