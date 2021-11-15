@@ -57,9 +57,13 @@ long measurePaging(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
     long counter = 0;
     long temp = 0;
     long resultTemp = 0;
-    long averageMin = average*0.7;
-    long averageMax = average*1.3;
+    long averageMin = average*0.1;
+    long averageMax = average*1.9;
     long result = 0;
+    
+    printf("averageMax = %ld\n",averageMax);
+    
+    printf("averageMin = %ld\n",averageMin);
 
     struct timespec start, stop;
 
@@ -81,6 +85,9 @@ long measurePaging(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
             assert(clock_gettime(CLOCK_MONOTONIC_RAW, &stop) == 0);
 
             temp = calcTime(start, stop, 1);
+            
+            printf("temp = %ld\n",temp);
+            
             if (temp < averageMin || temp > averageMax) 
             {
                 counter += 1;
@@ -89,6 +96,7 @@ long measurePaging(long PAGESIZE, int NUMPAGES, int LOOPS, long average)
             resultTemp += temp;
             
         }
+        printf("counter = %ld\n",counter);
         if(NUMPAGES - counter > 0) {
             result += resultTemp/(NUMPAGES - counter);
         }
