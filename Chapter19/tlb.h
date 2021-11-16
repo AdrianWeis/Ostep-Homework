@@ -55,13 +55,13 @@ long measurePagingAverage(long PAGESIZE, int NUMPAGES, int LOOPS) {
 long measurePagingMinMax(long PAGESIZE, int NUMPAGES, int LOOPS)
 {
     long counter = 0;
-    long resultTemp = 0;
+    double resultTemp = 0;
     int temp = 0;
     long min = 0;
     double average = 0;
     int minMaxFilter = 0;
     long max = 0;
-    long result = 0;
+    double result = 0;
 
     long *timeArray = (long*) malloc(NUMPAGES * sizeof(long));
     assert(timeArray != NULL);
@@ -128,7 +128,7 @@ long measurePagingMinMax(long PAGESIZE, int NUMPAGES, int LOOPS)
 
     free(timeArray);
     free(array);
-    return result/LOOPS;
+    return (long)(result/LOOPS);
 }
 
 long measureOverheadAverage(int LOOPS, int NUMPAGES) {
