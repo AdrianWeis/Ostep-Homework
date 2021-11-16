@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
     const long PAGESIZE = sysconf(_SC_PAGE_SIZE);
 
-    int NUMPAGES = 4;
+    int NUMPAGES = 32;
     int LOOPS = 1000000;
     int opt;
 
