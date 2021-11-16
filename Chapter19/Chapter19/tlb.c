@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     printf("Numpages: %d    Loops: %d\n", NUMPAGES, LOOPS);
 
     long averageTime = measureOverheadAverage(LOOPS, NUMPAGES);
-    long overheadMinMax = measureOverheadMinMax(LOOPS, NUMPAGES);
+    long overheadMinMax = measureOverheadMinMax(LOOPS);
     //long overheadList = measureOverheadList(LOOPS, NUMPAGES);
 
     long averagePage = measurePagingAverage(PAGESIZE, NUMPAGES, LOOPS);
