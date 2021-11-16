@@ -126,7 +126,7 @@ long measurePagingList(long PAGESIZE, int NUMPAGES, int LOOPS)
             }
             p = p->ptr;
         }
-        result = resultTemp/counter;
+        result += resultTemp/counter;
         resultTemp = 0;
         counter = 0;
         free_list(head);
@@ -168,7 +168,7 @@ long measureOverheadList(int LOOPS, int NUMPAGES)
             }
             p = p->ptr;
         }
-        result = resultTemp/counter;
+        result += resultTemp/counter;
         resultTemp = 0;
         counter = 0;
         free_list(head);
