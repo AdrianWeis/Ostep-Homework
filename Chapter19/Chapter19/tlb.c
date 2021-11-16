@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 
     long averageTime = measureOverheadAverage(LOOPS, NUMPAGES);
     long overheadMinMax = measureOverheadMinMax(LOOPS, NUMPAGES);
-    long overheadList = measureOverheadList(LOOPS, NUMPAGES);
+    //long overheadList = measureOverheadList(LOOPS, NUMPAGES);
 
     long averagePage = measurePagingAverage(PAGESIZE, NUMPAGES, LOOPS);
     long timeMinMax = measurePagingMinMax(PAGESIZE, NUMPAGES, LOOPS);
