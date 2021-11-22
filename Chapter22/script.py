@@ -17,7 +17,7 @@ with open('./paging-policy.py', 'rb+') as f:
 
 trials = 10
 pages = 10
-policy = 'FIFO'
+policy ='FIFO'
 argument = ''
 arrAdressen = []
 
