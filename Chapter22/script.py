@@ -12,6 +12,7 @@ trials = 10
 pages = 10
 policy = "FIFO"
 argument = ""
+arrAdressen = []
 
 parser = OptionParser()
 parser.add_option('-n', '--numaddrs', default=10, help='Number of Address Trials', action='store', type='int', dest='numtrials')
@@ -24,10 +25,8 @@ trials = options.numtrials
 pages = options.numpages
 policy = options.policyChoice
 
-arrAdressen[trials]
-
 for i in range(trials):
-    arrAdressen[i] = randrange(pages)
+    arrAdressen.append(randrange(pages))
 
 argument = ','.join(map(str,arrAdressen))
 
