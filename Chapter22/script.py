@@ -34,7 +34,7 @@ argument = ','.join(map(str,arrAdressen))
 # Clear whole file to get new values
 open('out.txt', 'w').close()
 
-subprocess.call(["paging-policy.py", "-p " + policy, "-m " + str(pages), "-a " + argument, "-c"])
+subprocess.call(["./paging-policy.py", "-p " + policy, "-m " + str(pages), "-a " + argument, "-c"])
 
 
 
