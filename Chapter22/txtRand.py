@@ -30,7 +30,7 @@ open('adrRand.txt', 'w').close()
 for i in range(trials):
     arrAdressen.append(randrange(pages))
 
-argument = ','.join(map(str,arrAdressen))
+argument = ' '.join(map(str,arrAdressen))
 
 with open("adr.txt", "w") as text_file:
     text_file.write(argument)
