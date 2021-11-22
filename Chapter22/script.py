@@ -17,8 +17,8 @@ with open('./paging-policy.py', 'rb+') as f:
 
 trials = 10
 pages = 10
-policy = "FIFO"
-argument = ""
+policy = 'FIFO'
+argument = ''
 arrAdressen = []
 
 parser = OptionParser()
@@ -40,7 +40,7 @@ argument = ','.join(map(str,arrAdressen))
 # Clear whole file to get new values
 open('out.txt', 'w').close()
 
-subprocess.call(["./paging-policy.py", "-p " + policy, "-m " + str(pages), "-a " + argument, "-c"])
+subprocess.call(['./paging-policy.py', '-p ' + policy, '-m ' + str(pages), '-a ' + argument, '-c'])
 
 
 
