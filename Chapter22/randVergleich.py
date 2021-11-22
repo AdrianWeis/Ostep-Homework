@@ -56,12 +56,14 @@ for val in policy:
                 cache) + " -c"
             with Popen(command, stdout=PIPE, stderr=None, shell=True) as process:
                 output = process.communicate()[0].decode("utf-8")
-                datei.write("\r\n" + val + str(bit) + ": " + pattern.findall(output))
+                string = ''.join(output)
+                datei.write("\r\n" + val + str(bit) + ": " + pattern.findall(string))
     else:
         command = "./paging-policy.py -p " + val + " -m " + str(pages) + " -a " + argument + ' -C ' + str(cache) + " -c"
         with Popen(command, stdout=PIPE, stderr=None, shell=True) as process:
             output = process.communicate()[0].decode("utf-8")
-            datei.write("\r\n" + val + ": " + pattern.findall(output))
+            string = ''.join(output)
+            datei.write("\r\n" + val + ": " + pattern.findall(string))
 
 
 
