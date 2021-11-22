@@ -26,7 +26,7 @@ policy = options.policyChoice
 
 arrAdressen[trials]
 
-for i in range(trials)
+for i in range(trials):
     arrAdressen[i] = randrange(pages)
 
 argument = ','.join(map(str,arrAdressen))
