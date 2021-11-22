@@ -30,7 +30,7 @@ for i in range(trials):
 
 argument = ','.join(map(str,arrAdressen))
 
-subprocess.call(["python3 ./paging-policy.py", "-p " + policy, "-m " + str(pages), "-a " + argument, "-c"])
+subprocess.call(["paging-policy.py", "-p " + policy, "-m " + str(pages), "-a " + argument, "-c"])
 
 
 
