@@ -8,7 +8,12 @@ from random import randrange
 
 import subprocess
 import os
-import matplotlib.pyplot as plt
+
+with open('./paging-policy.py', 'rb+') as f:
+    content = f.read()
+    f.seek(0)
+    f.write(content.replace(b'\r', b''))
+    f.truncate()
 
 trials = 10
 pages = 10
@@ -37,7 +42,7 @@ for i in range(trials):
 argument = ','.join(map(str,arrAdressen))
 
 for val in policy:
-    subprocess.call(["python3 paging-policy.py", "-p " + val, "-m " + str(pages), "-a " + argument, '-C ' + str(cache) , "-c"])
+    subprocess.call(["./paging-policy.py", "-p " + val, "-m " + str(pages), "-a " + argument, '-C ' + str(cache) , "-c"])
     
 
 
