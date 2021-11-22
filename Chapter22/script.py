@@ -7,6 +7,7 @@ from optparse import OptionParser
 from random import randrange
 
 import subprocess
+import os
 
 trials = 10
 pages = 10
@@ -29,6 +30,9 @@ for i in range(trials):
     arrAdressen.append(randrange(pages))
 
 argument = ','.join(map(str,arrAdressen))
+
+# Clear whole file to get new values
+open('out.txt', 'w').close()
 
 subprocess.call(["paging-policy.py", "-p " + policy, "-m " + str(pages), "-a " + argument, "-c"])
 
