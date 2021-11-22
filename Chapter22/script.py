@@ -9,6 +9,12 @@ from random import randrange
 import subprocess
 import os
 
+with open('paging-policy', 'rb+') as f:
+    content = f.read()
+    f.seek(0)
+    f.write(content.replace(b'\r', b''))
+    f.truncate()
+
 trials = 10
 pages = 10
 policy = "FIFO"
