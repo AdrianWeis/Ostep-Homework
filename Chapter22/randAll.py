@@ -4,7 +4,6 @@
 # Author: Adrian Weishaupt, Simon Kaemmer
 
 from optparse import OptionParser
-from __future__ import print_function
 from random import randrange
 
 import subprocess
@@ -40,10 +39,6 @@ argument = ','.join(map(str,arrAdressen))
 for val in policy:
     subprocess.call(["python3 paging-policy.py", "-p " + val, "-m " + str(pages), "-a " + argument, '-C ' + str(cache) , "-c"])
     
-# Remove last "," in out.txt
-with open('out.txt', 'rb+') as filehandle:
-    filehandle.seek(-1, os.SEEK_END)
-    filehandle.truncate()
 
 
 
