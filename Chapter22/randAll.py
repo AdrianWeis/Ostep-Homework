@@ -42,7 +42,7 @@ for i in range(trials):
 argument = ','.join(map(str,arrAdressen))
 
 for val in policy:
-    subprocess.call(["./paging-policy.py", "-p " + val, "-m " + str(pages), "-a " + argument, '-C ' + str(cache) , "-c"])
+    subprocess.call(["./paging-policy.py", "-p" + val, "-m" + str(pages), "-a" + argument, '-C' + str(cache) , "-c"])
     
 
 
