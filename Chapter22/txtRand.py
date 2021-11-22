@@ -4,7 +4,6 @@
 # Author: Adrian Weishaupt, Simon Kaemmer
 
 from optparse import OptionParser
-from __future__ import print_function
 from random import randrange
 
 import subprocess
