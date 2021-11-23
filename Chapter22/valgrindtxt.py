@@ -6,6 +6,8 @@
 import subprocess
 import os
 
+open("./val", "w").close()
+open("./addressList.txt", "w").close()
 
 subprocess.call(["valgrind", "--log-file=val", "--tool=lackey", "--trace-mem=yes" , "ls"])
 
@@ -18,7 +20,7 @@ for line in trace:
         maskedOffset = int(hex,16) & 0x00000fff
         maskedPage = int(hex,16) & 0xfffff000
         pageShift = maskedPage >> 12
-        adresslist.write(str(int(pageShift)))
+        adresslist.write("\r\n" + str(int(pageShift)))
 
 trace.close()
 adresslist.close()
