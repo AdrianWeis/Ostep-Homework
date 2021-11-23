@@ -19,18 +19,18 @@ for line in trace:
         hex = "0x" + line[3:11]
         maskedPage = int(hex,16) & 0xfffff000
         pageShift = maskedPage >> 12
-        adresslist.write("\r\n" + str(int(pageShift)))
+        adresslist.write(str(int(pageShift)) + "\n")
     if line[1] == 'L':
         hex = "0x" + line[3:11]
         maskedPage = int(hex,16) & 0xfffff000
         pageShift = maskedPage >> 12
-        adresslist.write("\r\n" + str(int(pageShift)))
+        adresslist.write(str(int(pageShift)) + "\n")
     if line[1] == 'S':
         if line[12] != ',':
             hex = "0x" + line[3:11]
             maskedPage = int(hex,16) & 0xfffff000
             pageShift = maskedPage >> 12
-            adresslist.write("\r\n" + str(int(pageShift)))
+            adresslist.write(str(int(pageShift)) + "\n")
             #keine Ahnung bei 40 bit
 
 trace.close()
