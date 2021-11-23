@@ -26,4 +26,5 @@ trace.close()
 adresslist.close()
 
 
+os.system("sort addressList.txt | uniq -c | sort -nr")
 
