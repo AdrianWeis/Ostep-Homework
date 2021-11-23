@@ -31,8 +31,7 @@ for line in trace:
             maskedPage = int(hex,16) & 0xfffff000
             pageShift = maskedPage >> 12
             adresslist.write("\r\n" + str(int(pageShift)))
-        else :
-            #keine Ahnung auf einmal 40 bit
+            #keine Ahnung bei 40 bit
 
 trace.close()
 adresslist.close()
