@@ -36,8 +36,8 @@ cache = options.cachesize
 
 for val in policy:
     if val != "CLOCK":
-        subprocess.call(["./paging-policy.py", "-p" + val, "-m" + str(pages), "-f addressList.txt", '-C' + str(cache) ,"-N", "-c"])
+        subprocess.call(["./paging-policy.py", "-p" + val, "-m" + str(pages), "-f ./addressList.txt", '-C' + str(cache) ,"-N", "-c"])
     else :
-        subprocess.call(["./paging-policy.py", "-p" + val, "-b" + str(1), "-m" + str(pages), "-f addressList.txt", '-C' + str(cache) ,"-N", "-c"])
+        subprocess.call(["./paging-policy.py", "-p" + val, "-b" + str(1), "-m" + str(pages), "-f ./addressList.txt", '-C' + str(cache) ,"-N", "-c"])
     
 
