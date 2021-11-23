@@ -14,7 +14,7 @@ adresslist = open("./addressList.txt", "w")
 
 for line in trace:
     if line.startswith('I'):
-        hex = "0x" + line[3,11]
+        hex = "0x" + line[3:11]
         maskedOffset = hex & 0x00000fff
         maskedPage = hex & 0xfffff000
         pageShift = maskedPage >> 12
