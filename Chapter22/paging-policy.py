@@ -263,7 +263,7 @@ else:
             print('REF (a)', ref)
 
         if notrace == False:
-            #print('Access: %d  %s %s -> %12s <- %s Replaced:%s [Hits:%d Misses:%d]' % (n, hfunc(idx), leftStr, memory, riteStr, vfunc(victim), hits, miss))
+            print('Access: %d  %s %s -> %12s <- %s Replaced:%s [Hits:%d Misses:%d]' % (n, hfunc(idx), leftStr, memory, riteStr, vfunc(victim), hits, miss))
         addrIndex = addrIndex + 1
         
     print('')
