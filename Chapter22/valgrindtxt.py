@@ -5,4 +5,4 @@
 
 import subprocess
 
-subprocess.call(["valgrind --log-file=val --tool=lackey --trace-mem=yes ls"])
+subprocess.call(["valgrind", "--log-file=val", "--tool=lackey", "--trace-mem=yes" , "ls"])
