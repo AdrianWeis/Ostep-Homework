@@ -20,7 +20,7 @@ for line in trace:
         maskedOffset = int(hex,16) & 0x00000fff
         maskedPage = int(hex,16) & 0xfffff000
         pageShift = maskedPage >> 12
-        adresslist.write("\r\n" + str(int(pageShift)))
+        adresslist.write(str(int(pageShift)) + "\n")
 
 trace.close()
 adresslist.close()
