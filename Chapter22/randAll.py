@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# Author: Adrian Weishaupt, Simon Kaemmer
+# Author: Adrian Weishaupt
 
 from optparse import OptionParser
 from random import randrange
@@ -22,7 +22,7 @@ with open('./paging-policy.py', 'rb+') as f:
 trials = 10
 pages = 10
 cache = 5
-policy = ["FIFO", "LRU", "RAND", "CLOCK"]
+policy = ["FIFO", "LRU", "RAND", "OPT", "CLOCK"]
 argument = ""
 arrAdressen = []
 
@@ -45,23 +45,13 @@ for i in range(trials):
 
 argument = ','.join(map(str,arrAdressen))
 
-datei = open('vergleich.txt','r')
-
-pattern = re.compile("FINALSTATS (.*?) hitrate")
 
 for val in policy:
-    if val == "CLOCK":
-        for bit in range(1,10):
-            command = "./paging-policy.py -p " + val + " -b " + str(bit) + " -m " + str(pages) + " -a " + argument + ' -C ' + str(
-                cache) + " -c"
-            with Popen(command, stdout=PIPE, stderr=None, shell=True) as process:
-                output = process.communicate()[0].decode("utf-8")
-                datei.write("\r\n" + val + str(bit) + ": " + pattern.findall(output))
-    else:
-        command = "./paging-policy.py -p " + val + " -m " + str(pages) + " -a " + argument + ' -C ' + str(cache) + " -c"
-        with Popen(command, stdout=PIPE, stderr=None, shell=True) as process:
-            output = process.communicate()[0].decode("utf-8")
-            datei.write("\r\n" + val + ": " + pattern.findall(output))
+    if val != "CLOCK":
+        subprocess.call(["./paging-policy.py", "-p" + val, "-m" + str(pages), "-a" + argument, '-C' + str(cache) , "-c"])
+    else :
+        for i in range(1,5):
+            subprocess.call(["./paging-policy.py", "-p" + val, "-b" + str(i), "-m" + str(pages), "-a" + argument, '-C' + str(cache) , "-c"])
 
 
 

@@ -4,19 +4,23 @@
 # Author: Adrian Weishaupt
 
 from optparse import OptionParser
-from __future__ import print_function
 from random import randrange
 
 import subprocess
 import os
-import matplotlib.pyplot as plt
+
+from subprocess import PIPE, Popen
+
+with open('./paging-policy.py', 'rb+') as f:
+    content = f.read()
+    f.seek(0)
+    f.write(content.replace(b'\r', b''))
+    f.truncate()
 
 trials = 10
 pages = 10
 cache = 5
-policy = ["FIFO", "LRU", "RAND", "CLOCK"]
-argument = ""
-arrAdressen = []
+policy = ["FIFO", "LRU", "RAND", "OPT", "CLOCK"]
 
 parser = OptionParser()
 parser.add_option('-n', '--numaddrs', default=10, help='Number of Address Trials', action='store', type='int', dest='numtrials')
@@ -29,23 +33,11 @@ trials = options.numtrials
 pages = options.numpages
 cache = options.cachesize
 
-# Clear whole file to get new values
-open('out.txt', 'w').close()
-
-for i in range(trials):
-    arrAdressen.append(randrange(pages))
-
-argument = ','.join(map(str,arrAdressen))
 
 for val in policy:
-    subprocess.call(["python3 paging-policy.py", "-p " + val, "-m " + str(pages), "-a " + argument, '-C ' + str(cache) , "-c"])
+    if val != "CLOCK":
+        subprocess.call(["./paging-policy.py", "-p" + val, "-m" + str(pages), "-f addressList.txt", '-C' + str(cache) ,"-N", "-c"])
+    else :
+        subprocess.call(["./paging-policy.py", "-p" + val, "-b" + str(1), "-m" + str(pages), "-f addressList.txt", '-C' + str(cache) ,"-N", "-c"])
     
-# Remove last "," in out.txt
-with open('out.txt', 'rb+') as filehandle:
-    filehandle.seek(-1, os.SEEK_END)
-    filehandle.truncate()
-
-
-
-
 

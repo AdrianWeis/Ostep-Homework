@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# Author: Adrian Weishaupt, Simon Kaemmer
+# Author: Adrian Weishaupt
 
 import subprocess
 import os
@@ -20,11 +20,10 @@ for line in trace:
         maskedOffset = int(hex,16) & 0x00000fff
         maskedPage = int(hex,16) & 0xfffff000
         pageShift = maskedPage >> 12
-        adresslist.write(str(int(pageShift)) + "\n")
+        adresslist.write("\r\n" + str(int(pageShift)))
 
 trace.close()
 adresslist.close()
-
 
 os.system("sort addressList.txt | uniq -c | sort -nr")
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# Author: Adrian Weishaupt, Simon Kaemmer
+# Author: Adrian Weishaupt
 
 from optparse import OptionParser
 from random import randrange
@@ -18,7 +18,7 @@ with open('./paging-policy.py', 'rb+') as f:
 trials = 10
 pages = 10
 cache = 5
-policy = ["FIFO", "LRU", "LFU", "RAND", "CLOCK"]
+policy = ["FIFO", "LRU", "RAND", "CLOCK"]
 argument = ""
 arrAdressen = []
 

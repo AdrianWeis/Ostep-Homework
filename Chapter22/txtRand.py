@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 
-# Author: Adrian Weishaupt, Simon Kaemmer
+# Author: Adrian Weishaupt
 
 from optparse import OptionParser
+from __future__ import print_function
 from random import randrange
 
 import subprocess
@@ -30,7 +31,7 @@ open('adrRand.txt', 'w').close()
 for i in range(trials):
     arrAdressen.append(randrange(pages))
 
-argument = ' '.join(map(str,arrAdressen))
+argument = ','.join(map(str,arrAdressen))
 
 with open("adr.txt", "w") as text_file:
     text_file.write(argument)

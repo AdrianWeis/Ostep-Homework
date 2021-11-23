@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# Author: Adrian Weishaupt, Simon Kaemmer
+# Author: Adrian Weishaupt
 
 from optparse import OptionParser
 from random import randrange
@@ -56,14 +56,14 @@ for val in policy:
                 cache) + " -c"
             with Popen(command, stdout=PIPE, stderr=None, shell=True) as process:
                 output = process.communicate()[0].decode("utf-8")
-                string = ''.join(pattern.findall(output))
-                datei.write("\r\n" + val + str(bit) + ": " + string)
+                string = ''.join(output)
+                datei.write("\r\n" + val + str(bit) + ": " + pattern.findall(string))
     else:
         command = "./paging-policy.py -p " + val + " -m " + str(pages) + " -a " + argument + ' -C ' + str(cache) + " -c"
         with Popen(command, stdout=PIPE, stderr=None, shell=True) as process:
             output = process.communicate()[0].decode("utf-8")
-            string = ''.join(pattern.findall(output))
-            datei.write("\r\n" + val + ": " + string)
+            string = ''.join(output)
+            datei.write("\r\n" + val + ": " + pattern.findall(string))
 
 
 
