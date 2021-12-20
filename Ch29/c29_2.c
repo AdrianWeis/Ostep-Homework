@@ -6,6 +6,8 @@ typedef struct __counter_t {
     pthread_mutex_t lock;
 } counter_t;
 
+typedef struct { int time; } myret_t;
+
 
 void init(counter_t *c) {
     c->value = 0;
@@ -34,7 +36,7 @@ int get(counter_t *c) {
 void *worker(void *arg) {
     struct timespec start,end;
     counter_t *c = (counter_t*) arg;
-    long* rvals = malloc(sizeof(long));
+    myret_t* rvals = malloc(sizeof(myret_t));
     assert(rvals != NULL);
 
     //printf("I am before the loop\n");
@@ -50,9 +52,7 @@ void *worker(void *arg) {
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
     //printf("I am after the loop\n");
-
-    long temp = calcTime(start,end,LOOPS);
-    rvals = &temp;
+    rvals->time = calcTime(start,end,LOOPS);
     return (void *) rvals;
 }
 
@@ -69,12 +69,13 @@ int main()
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
     init(count);
-    long *rvals;
+    myret_t *rvals;
     //int loops = LOOPS;
     Pthread_create(&p, NULL, worker, count);
     
     Pthread_join(p, (void **) &rvals);
-    printf("Average Increment: %ld ns\n", *rvals);
+    printf("Average Increment: %ld ns\n", rvals->time);
+    printf("Counter at: %d\n", count->value);
     free(rvals);
     return 0;
 
