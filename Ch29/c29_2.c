@@ -87,7 +87,7 @@ int main()
     sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask); */
 
     pthread_t p;
-    counter_t *c;
+    counter_t *c = malloc(sizeof(counter_t));
     init(c);
     long *rvals;
     //int loops = LOOPS;
