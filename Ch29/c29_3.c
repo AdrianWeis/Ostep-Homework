@@ -79,7 +79,7 @@ int main(int argc, char*argv[]) {
     
     int tAnz = atoi(argv[1]); 
 
-    printf("Number of CPUs: %ld\n", NUMCPUS);
+    printf("Number of CPUs: %d\n", NUMCPUS);
 
     /*cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -138,9 +138,9 @@ int main(int argc, char*argv[]) {
         arg3->c = count;
         arg3->thread = 2;
         //int loops = LOOPS;
-        Pthread_create(&p1, NULL, worker, count);
-        Pthread_create(&p2, NULL, worker, count);
-        Pthread_create(&p3, NULL, worker, count);
+        Pthread_create(&p1, NULL, worker, arg1);
+        Pthread_create(&p2, NULL, worker, arg2);
+        Pthread_create(&p3, NULL, worker, arg3);
         Pthread_join(p1, (void **) &rvals1);
         Pthread_join(p2, (void **) &rvals2);
         Pthread_join(p3, (void **) &rvals3);
@@ -181,10 +181,10 @@ int main(int argc, char*argv[]) {
         arg4->c = count;
         arg4->thread = 3;
         //int loops = LOOPS;
-        Pthread_create(&p1, NULL, worker, count);
-        Pthread_create(&p2, NULL, worker, count);
-        Pthread_create(&p3, NULL, worker, count);
-        Pthread_create(&p4, NULL, worker, count);
+        Pthread_create(&p1, NULL, worker, arg1);
+        Pthread_create(&p2, NULL, worker, arg2);
+        Pthread_create(&p3, NULL, worker, arg3);
+        Pthread_create(&p4, NULL, worker, arg4);
         Pthread_join(p1, (void **) &rvals1);
         Pthread_join(p2, (void **) &rvals2);
         Pthread_join(p3, (void **) &rvals3);
