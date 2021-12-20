@@ -12,7 +12,7 @@ CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic -pthread
 all: c29_2 c29_3 test
 
 clean:
-	rm -f c29_2 c29_3
+	rm -f c29_2 c29_3 test
 
 c29_2: c29_2.c c29.h
 	$(CC) -o c29_2 c29_2.c $(CFLAGS)
