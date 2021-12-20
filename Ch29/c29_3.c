@@ -10,7 +10,7 @@ typedef struct __counter_t {
 
 typedef struct { long time; } myret_t;
 
-typedef struct { counter_t* c; int thread; } myargs;
+typedef struct { counter_t* c; int thread; int loop} myargs;
 
 // init: record threshold, init locks, init values
 // of all local counts and global count
@@ -25,6 +25,11 @@ void init(counter_t *c, int threshold) {
     }
 }
 
+void initArg(myargs * arg, counter_t * c, int thread, int tAnz) {
+    arg->loop = LOOPS/tAnz;
+    arg->thread = thread;
+    arg->c = c;
+}
 // update: usually, just grab local lock and update
 // local amount; once local count has risen ’threshold’,
 // grab global lock and transfer local values to it
@@ -77,7 +82,10 @@ int main(int argc, char*argv[]) {
         return -1;
     }
     
-    int tAnz = atoi(argv[1]); 
+    int tAnz = atoi(argv[1]);
+    if (tAnz > 4 || tAnz < 1) {     
+        tAnz = 1;
+    }
 
     printf("Number of CPUs: %d\n", NUMCPUS);
 
@@ -98,12 +106,10 @@ int main(int argc, char*argv[]) {
 
         myargs * arg1=malloc(sizeof(myargs));
         assert(arg1 != NULL);
-        arg1->c = count;
-        arg1->thread = 0;
+        initArg(arg1, count, 0, tAnz);
         myargs * arg2=malloc(sizeof(myargs));
         assert(arg2 != NULL);
-        arg2->c = count;
-        arg2->thread = 1;
+        initArg(arg2, count, 1, tAnz);
         //int loops = LOOPS;
         Pthread_create(&p1, NULL, worker, arg1);
         Pthread_create(&p2, NULL, worker, arg2);
@@ -127,16 +133,13 @@ int main(int argc, char*argv[]) {
 
         myargs * arg1=malloc(sizeof(myargs));
         assert(arg1 != NULL);
-        arg1->c = count;
-        arg1->thread = 0;
+        initArg(arg1, count, 0, tAnz);
         myargs * arg2=malloc(sizeof(myargs));
         assert(arg2 != NULL);
-        arg2->c = count;
-        arg2->thread = 1;
+        initArg(arg2, count, 1, tAnz);
         myargs * arg3=malloc(sizeof(myargs));
         assert(arg3 != NULL);
-        arg3->c = count;
-        arg3->thread = 2;
+        initArg(arg3, count, 2, tAnz);
         //int loops = LOOPS;
         Pthread_create(&p1, NULL, worker, arg1);
         Pthread_create(&p2, NULL, worker, arg2);
@@ -166,20 +169,16 @@ int main(int argc, char*argv[]) {
 
         myargs * arg1=malloc(sizeof(myargs));
         assert(arg1 != NULL);
-        arg1->c = count;
-        arg1->thread = 0;
+        initArg(arg1, count, 0, tAnz);
         myargs * arg2=malloc(sizeof(myargs));
         assert(arg2 != NULL);
-        arg2->c = count;
-        arg2->thread = 1;
+        initArg(arg2, count, 1, tAnz);
         myargs * arg3=malloc(sizeof(myargs));
         assert(arg3 != NULL);
-        arg3->c = count;
-        arg3->thread = 2;
+        initArg(arg3, count, 2, tAnz);
         myargs * arg4=malloc(sizeof(myargs));
         assert(arg4 != NULL);
-        arg4->c = count;
-        arg4->thread = 3;
+        initArg(arg4, count, 3, tAnz);
         //int loops = LOOPS;
         Pthread_create(&p1, NULL, worker, arg1);
         Pthread_create(&p2, NULL, worker, arg2);
@@ -210,8 +209,7 @@ int main(int argc, char*argv[]) {
         myret_t *rvals1;
         myargs * arg1=malloc(sizeof(myargs));
         assert(arg1 != NULL);
-        arg1->c = count;
-        arg1->thread = 0;
+        initArg(arg1, count, 0, tAnz);
         //int loops = LOOPS;
         Pthread_create(&p1, NULL, worker, arg1);
         Pthread_join(p1, (void **) &rvals1);
