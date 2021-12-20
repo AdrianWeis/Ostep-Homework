@@ -14,7 +14,7 @@
 
 
 #define BILLION 1000000000
-#define LOOPS 100
+#define LOOPS 10000
 
 #ifdef __linux__
 #include <semaphore.h>
