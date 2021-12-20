@@ -10,7 +10,7 @@ typedef struct __counter_t {
 
 typedef struct { long time; } myret_t;
 
-typedef struct { _counter_t c; int thread; } myargs;
+typedef struct { counter_t c; int thread; } myargs;
 
 // init: record threshold, init locks, init values
 // of all local counts and global count
