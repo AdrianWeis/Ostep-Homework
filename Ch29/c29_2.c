@@ -30,22 +30,6 @@ int get(counter_t *c) {
     return rc;
 }
 
-// Function to calculate timedifference from stop to start with overflow handling
-long calcTime(struct timespec start, struct timespec stop, int loops) {
-
-    struct timespec res;
-    // Check if nsec gets negative, and correct it
-    if((stop.tv_nsec - start.tv_nsec) < 0) {
-        res.tv_sec = stop.tv_sec - start.tv_sec -1; // Correct addition of 1Bil nanosecs
-        res.tv_nsec = stop.tv_nsec - start.tv_nsec + BILLION;
-    } else {
-        res.tv_sec = stop.tv_sec - start.tv_sec;
-        res.tv_nsec = stop.tv_nsec - start.tv_nsec;
-    }
-
-    return ((res.tv_sec * BILLION + res.tv_nsec) / loops);
-}
-
 void *worker(void *arg) {
     struct timespec start,end;
     counter_t *c = (counter_t*) arg;
