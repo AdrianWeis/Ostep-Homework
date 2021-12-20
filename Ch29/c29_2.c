@@ -57,26 +57,39 @@ void *worker(void *arg) {
 }
 
 
-int main()
-{
+int main(int argc, char*argv[]) {
+
+    /* if (argc != 2){
+        printf("Fehlerhafteraufruf: c29_2 threadAnz\n");
+        return -1;
+    }
+    
+    int tAnz = artoi(argv[1]); */
 
     /* cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(1, &mask);
     sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask); */
 
-    pthread_t p;
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
     init(count);
-    myret_t *rvals;
-    //int loops = LOOPS;
-    Pthread_create(&p, NULL, worker, count);
+
+    pthread_t p1,p2;
     
-    Pthread_join(p, (void **) &rvals);
-    printf("Average Increment: %ld ns\n", rvals->time);
+    myret_t *rvals1;
+    myret_t *rvals2;
+    //int loops = LOOPS;
+    Pthread_create(&p1, NULL, worker, count);
+    Pthread_create(&p2, NULL, worker, count);
+    Pthread_join(p1, (void **) &rvals1);
+    Pthread_join(p2, (void **) &rvals2);
+    
+    printf("Average Increment Time p1: %ld ns\n", rvals1->time);
+    printf("Average Increment Time p2: %ld ns\n", rvals2->time);
     printf("Counter at: %d\n", count->value);
-    free(rvals);
+    free(rvals1);
+    free(rvals2);
     return 0;
 
 }
