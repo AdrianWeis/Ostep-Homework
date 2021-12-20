@@ -58,9 +58,10 @@ int List_Lookup(list_t *L, int key) {
             Pthread_mutex_unlock(&curr->lock);
             return 0; // success
         }
-        Pthread_mutex_lock(&curr->next->lock);
+        
         tmp = curr;
         curr = curr->next;
+        Pthread_mutex_lock(&curr->lock);
         Pthread_mutex_unlock(&tmp->lock);
     }
     Pthread_mutex_unlock(&curr->lock);
