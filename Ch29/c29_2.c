@@ -1,4 +1,5 @@
 #include "c29.h"
+#include <stdlib.h>
 
 typedef struct __counter_t {
     int value;
@@ -6,7 +7,6 @@ typedef struct __counter_t {
 } counter_t;
 
 typedef struct { long time; } myret_t;
-
 
 void init(counter_t *c) {
     c->value = 0;
@@ -38,20 +38,14 @@ void *worker(void *arg) {
     myret_t* rvals = malloc(sizeof(myret_t));
     assert(rvals != NULL);
 
-    //printf("I am before the loop\n");
-
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
-    for(int i = 0; i < LOOPS; i++)
+    for(int i = 0; i < &loop; i++)
     {
-        /* if(i%10 == 0){
-            printf("I am in mod 10 of the loop\n");
-        } */
         increment(c);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
-    //printf("I am after the loop\n");
-    rvals->time = calcTime(start,end,LOOPS);
+    rvals->time = calcTime(start,end,&loop);
     return (void *) rvals;
 }
 
@@ -63,7 +57,9 @@ int main(int argc, char*argv[]) {
         return -1;
     }
     
-    int tAnz = atoi(argv[1]); 
+    int tAnz = atoi(argv[1]);
+    int * loop = malloc(sizeof(int));
+    assert(loop != NULL);
 
     printf("Number of CPUs: %ld\n", sysconf(_SC_NPROCESSORS_CONF));
 
@@ -78,10 +74,10 @@ int main(int argc, char*argv[]) {
 
     if(tAnz == 2) {
         pthread_t p1,p2;
-        
+        *loop = LOOPS/tAnz;
+
         myret_t *rvals1;
         myret_t *rvals2;
-        //int loops = LOOPS;
         Pthread_create(&p1, NULL, worker, count);
         Pthread_create(&p2, NULL, worker, count);
         Pthread_join(p1, (void **) &rvals1);
@@ -95,11 +91,12 @@ int main(int argc, char*argv[]) {
         free(rvals2);
     } else if (tAnz == 3) {
         pthread_t p1,p2,p3;
-        
+        *loop = LOOPS/tAnz;
+
         myret_t * rvals1;
         myret_t *rvals2;
         myret_t *rvals3;
-        //int loops = LOOPS;
+
         Pthread_create(&p1, NULL, worker, count);
         Pthread_create(&p2, NULL, worker, count);
         Pthread_create(&p3, NULL, worker, count);
@@ -117,12 +114,13 @@ int main(int argc, char*argv[]) {
         free(rvals3);
     } else if (tAnz == 4) {
         pthread_t p1,p2,p3,p4;
+        *loop = LOOPS/tAnz;
         
         myret_t * rvals1;
         myret_t *rvals2;
         myret_t *rvals3;
         myret_t *rvals4;
-        //int loops = LOOPS;
+
         Pthread_create(&p1, NULL, worker, count);
         Pthread_create(&p2, NULL, worker, count);
         Pthread_create(&p3, NULL, worker, count);
@@ -144,9 +142,9 @@ int main(int argc, char*argv[]) {
         free(rvals4);
     } else {
         pthread_t p1;
+        *loop = LOOPS/1;
         
         myret_t *rvals1;
-        //int loops = LOOPS;
         Pthread_create(&p1, NULL, worker, count);
         Pthread_join(p1, (void **) &rvals1);
         
