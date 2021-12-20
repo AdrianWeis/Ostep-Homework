@@ -10,6 +10,7 @@ typedef struct __counter_t {
 void init(counter_t *c) {
     c->value = 0;
     Pthread_mutex_init(&c->lock, NULL);
+    Pthread_mutex_unlock(&c->lock);
 }
 
 void increment(counter_t *c) {
