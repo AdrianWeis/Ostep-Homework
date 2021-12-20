@@ -11,6 +11,7 @@ typedef struct __node_t {
 // basic list structure (one used per list)
 typedef struct __list_t {
     node_t *head;
+    pthread_mutex_t lock; //lock für den head
 } list_t;
 
 typedef struct myargs {
@@ -28,6 +29,7 @@ typedef struct { long time; } myret_t;
 
 void List_Init(list_t *L) {
     L->head = NULL;
+    Pthread_mutex_init(&L->lock, NULL);
 }
 
 int List_Insert(list_t *L, int key) {
@@ -40,10 +42,10 @@ int List_Insert(list_t *L, int key) {
     new->key = key;
     Pthread_mutex_init(&new->lock, NULL);
     
-    Pthread_mutex_lock(&L->head->lock);
+    Pthread_mutex_lock(&L->lock);
     new->next = L->head;
     L->head = new;
-    Pthread_mutex_unlock(&L->head->lock);
+    Pthread_mutex_unlock(&L->lock);
     return 0; // success
 }
 
