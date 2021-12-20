@@ -63,9 +63,9 @@ int main(int argc, char*argv[]) {
         return -1;
     }
     
-    int tAnz = artoi(argv[1]); 
+    int tAnz = atoi(argv[1]); 
 
-    printf("Number of CPUs: %d", sysconf(_SC_NPROCESSORS_CONF))
+    printf("Number of CPUs: %ld", sysconf(_SC_NPROCESSORS_CONF));
 
     /*cpu_set_t mask;
     CPU_ZERO(&mask);
