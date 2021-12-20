@@ -6,7 +6,7 @@ typedef struct __counter_t {
     pthread_mutex_t lock;
 } counter_t;
 
-typedef struct { int time; } myret_t;
+typedef struct { long time; } myret_t;
 
 
 void init(counter_t *c) {
