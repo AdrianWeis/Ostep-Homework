@@ -34,6 +34,7 @@ void List_Init(list_t *L) {
 int List_Insert(list_t *L, int key) {
     Pthread_mutex_lock(&L->lock);
     if (List_Lookup(L,key)) {
+        Pthread_mutex_unlock(&L->lock);
         return -1;
     }
     node_t *new = malloc(sizeof(node_t));
@@ -50,16 +51,16 @@ int List_Insert(list_t *L, int key) {
 }
 
 int List_Lookup(list_t *L, int key) {
-    Pthread_mutex_lock(&L->lock);
+    //Pthread_mutex_lock(&L->lock);
     node_t *curr = L->head;
     while (curr) {
         if (curr->key == key) {
-            Pthread_mutex_unlock(&L->lock);
+            //Pthread_mutex_unlock(&L->lock);
             return 0; // success
         }
         curr = curr->next;
     }
-    Pthread_mutex_unlock(&L->lock);
+    //Pthread_mutex_unlock(&L->lock);
     return -1; // failure
 }
 
