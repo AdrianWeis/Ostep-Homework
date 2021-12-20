@@ -62,7 +62,6 @@ int main()
     assert(c != NULL);
     init(c);
     long *rvals;
-    int error = 0;
     //int loops = LOOPS;
     Pthread_create(&p, NULL, worker, &c);
     

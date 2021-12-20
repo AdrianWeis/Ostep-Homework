@@ -76,9 +76,8 @@ int main()
     pthread_t p;
     counter_t *c = malloc(sizeof(counter_t));
     assert(c != NULL);
-    init(c);
+    init(c,5);
     long *rvals;
-    int error = 0;
     //int loops = LOOPS;
     Pthread_create(&p, NULL, worker, &c);
     
