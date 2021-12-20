@@ -10,7 +10,7 @@ typedef struct __counter_t {
 void init(counter_t *c) {
     c->value = 0;
     Pthread_mutex_init(&c->lock, NULL);
-    Pthread_mutex_unlock(&c->lock);
+    //Pthread_mutex_unlock(&c->lock);
 }
 
 void increment(counter_t *c) {
@@ -49,7 +49,7 @@ void *worker(void *arg) {
         if(i%10 == 0){
             printf("I am in mod 10 of the loop\n");
         }
-        increment(c);
+        increment(count);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
@@ -70,12 +70,12 @@ int main()
     sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask); */
 
     pthread_t p;
-    counter_t *c = malloc(sizeof(counter_t));
-    assert(c != NULL);
-    init(c);
+    counter_t *count = malloc(sizeof(counter_t));
+    assert(count != NULL);
+    init(count);
     long *rvals;
     //int loops = LOOPS;
-    Pthread_create(&p, NULL, worker, &c);
+    Pthread_create(&p, NULL, worker, &count);
     
     Pthread_join(p, (void **) &rvals);
     printf("Average Increment: %ld ns\n", *rvals);
