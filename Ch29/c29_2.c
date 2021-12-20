@@ -8,9 +8,16 @@ typedef struct __counter_t {
 
 typedef struct { long time; } myret_t;
 
+typedef struct { counter_t* c; int loop; } myargs;
+
 void init(counter_t *c) {
     c->value = 0;
     Pthread_mutex_init(&c->lock, NULL);
+}
+
+void initArg(myargs *arg, counter_t* c, int tAnz) {
+    arg->c = c;
+    arg->loop = LOOPS/tAnz;
 }
 
 void increment(counter_t *c) {
@@ -34,7 +41,9 @@ int get(counter_t *c) {
 
 void *worker(void *arg) {
     struct timespec start,end;
-    counter_t *c = (counter_t*) arg;
+    myargs * args = (myargs *) arg;
+    counter_t *c = args->c;
+    int loop = args->loop;
     myret_t* rvals = malloc(sizeof(myret_t));
     assert(rvals != NULL);
 
@@ -45,7 +54,7 @@ void *worker(void *arg) {
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
-    rvals->time = calcTime(start,end,&loop);
+    rvals->time = calcTime(start,end,loop);
     return (void *) rvals;
 }
 
@@ -58,8 +67,6 @@ int main(int argc, char*argv[]) {
     }
     
     int tAnz = atoi(argv[1]);
-    int * loop = malloc(sizeof(int));
-    assert(loop != NULL);
 
     printf("Number of CPUs: %ld\n", sysconf(_SC_NPROCESSORS_CONF));
 
@@ -71,6 +78,9 @@ int main(int argc, char*argv[]) {
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
     init(count);
+    myargs *arg = malloc(sizeof(myargs));
+    assert(count != NULL);
+    initArg(arg,count,tAnz);
 
     if(tAnz == 2) {
         pthread_t p1,p2;
@@ -78,8 +88,8 @@ int main(int argc, char*argv[]) {
 
         myret_t *rvals1;
         myret_t *rvals2;
-        Pthread_create(&p1, NULL, worker, count);
-        Pthread_create(&p2, NULL, worker, count);
+        Pthread_create(&p1, NULL, worker, arg);
+        Pthread_create(&p2, NULL, worker, arg);
         Pthread_join(p1, (void **) &rvals1);
         Pthread_join(p2, (void **) &rvals2);
         
@@ -91,15 +101,14 @@ int main(int argc, char*argv[]) {
         free(rvals2);
     } else if (tAnz == 3) {
         pthread_t p1,p2,p3;
-        *loop = LOOPS/tAnz;
 
         myret_t * rvals1;
         myret_t *rvals2;
         myret_t *rvals3;
 
-        Pthread_create(&p1, NULL, worker, count);
-        Pthread_create(&p2, NULL, worker, count);
-        Pthread_create(&p3, NULL, worker, count);
+        Pthread_create(&p1, NULL, worker, arg);
+        Pthread_create(&p2, NULL, worker, arg);
+        Pthread_create(&p3, NULL, worker, arg);
         Pthread_join(p1, (void **) &rvals1);
         Pthread_join(p2, (void **) &rvals2);
         Pthread_join(p3, (void **) &rvals3);
@@ -114,17 +123,16 @@ int main(int argc, char*argv[]) {
         free(rvals3);
     } else if (tAnz == 4) {
         pthread_t p1,p2,p3,p4;
-        *loop = LOOPS/tAnz;
         
         myret_t * rvals1;
         myret_t *rvals2;
         myret_t *rvals3;
         myret_t *rvals4;
 
-        Pthread_create(&p1, NULL, worker, count);
-        Pthread_create(&p2, NULL, worker, count);
-        Pthread_create(&p3, NULL, worker, count);
-        Pthread_create(&p4, NULL, worker, count);
+        Pthread_create(&p1, NULL, worker, arg);
+        Pthread_create(&p2, NULL, worker, arg);
+        Pthread_create(&p3, NULL, worker, arg);
+        Pthread_create(&p4, NULL, worker, arg);
         Pthread_join(p1, (void **) &rvals1);
         Pthread_join(p2, (void **) &rvals2);
         Pthread_join(p3, (void **) &rvals3);
@@ -145,13 +153,14 @@ int main(int argc, char*argv[]) {
         *loop = LOOPS/1;
         
         myret_t *rvals1;
-        Pthread_create(&p1, NULL, worker, count);
+        Pthread_create(&p1, NULL, worker, arg);
         Pthread_join(p1, (void **) &rvals1);
         
         printf("Average Increment Time with one thread: %ld ns\n", rvals1->time);
         printf("Counter at: %d\n", count->value);
         free(rvals1);
     }
+    free(arg);
     return 0;
 
 }
