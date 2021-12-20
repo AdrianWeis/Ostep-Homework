@@ -93,13 +93,14 @@ void List_Print(list_t *L) {
         return;
     Pthread_mutex_lock(&curr->lock);
     while (curr) {
-        printf("%d\n", curr->key);
+        printf("%d", curr->key);
         pthread_mutex_t *tempLock = &curr->lock;
         curr = curr->next;
         if (curr)
             Pthread_mutex_lock(&curr->lock);
         Pthread_mutex_unlock(tempLock);
     }
+    printf("\n");
 }
 
 void List_Free(list_t *L) {
@@ -137,6 +138,7 @@ int main(int argc, char*argv[]) {
     {
         List_Insert(count, rand()%100);
     }
+    List_Print(count);
 
     if(tAnz == 2) {
         pthread_t p1,p2;
