@@ -40,15 +40,15 @@ int List_Insert(list_t *L, int key) {
     new->key = key;
     Pthread_mutex_init(&new->lock, NULL);
     
-    Pthread_mutex_lock(&L->head->lock);
+    Pthread_mutex_lock(L->head->lock);
     if (List_Lookup(L,key)) {
-        Pthread_mutex_unlock(&L->head->lock);
+        Pthread_mutex_unlock(L->head->lock);
         return -1;
     }
-    Pthread_mutex_lock(&L->head->lock);
+    Pthread_mutex_lock(L->head->lock);
     new->next = L->head;
     L->head = new;
-    Pthread_mutex_unlock(&L->head->lock);
+    Pthread_mutex_unlock(L->head->lock);
     return 0; // success
 }
 
@@ -57,15 +57,15 @@ int List_Lookup(list_t *L, int key) {
     node_t *tmp;
     while (curr) {
         if (curr->key == key) {
-            Pthread_mutex_unlock(&curr->lock);
+            Pthread_mutex_unlock(curr->lock);
             return 0; // success
         }
-        Pthread_mutex_lock(&curr->next->lock);
+        Pthread_mutex_lock(curr->next->lock);
         tmp = curr;
         curr = curr->next;
-        Pthread_mutex_unlock(&tmp->lock);
+        Pthread_mutex_unlock(tmp->lock);
     }
-    Pthread_mutex_unlock(&curr->lock);
+    Pthread_mutex_unlock(curr->lock);
     return -1; // failure
 }
 
