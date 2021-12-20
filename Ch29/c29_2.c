@@ -19,9 +19,6 @@ typedef struct __counter_t {
     pthread_mutex_t lock;
 } counter_t;
 
-typedef struct timer {
-
-} timer;
 
 void init(counter_t *c) {
     c->value = 0;
@@ -93,10 +90,10 @@ int main()
     counter_t *c;
     init(c);
     long *rvals;
-    int loops = LOOPS;
+    //int loops = LOOPS;
     pthread_create(&p, NULL, worker, &c);
     pthread_join(p, (void **) &rvals);
-    printf("returned %ld ns\n", &rvals);
+    printf("returned %ld ns\n", *rvals);
     free(rvals);
     return 0;
 
