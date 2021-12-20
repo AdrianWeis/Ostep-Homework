@@ -3,14 +3,14 @@
 typedef struct __counter_t {
     int global; // global count
     pthread_mutex_t glock; // global lock
-    int local[NUMCPUS]; // per-CPU count
-    pthread_mutex_t llock[NUMCPUS]; // ... and locks
+    int local[sysconf(_SC_NPROCESSORS_CONF)]; // per-CPU count
+    pthread_mutex_t llock[sysconf(_SC_NPROCESSORS_CONF)]; // ... and locks
     int threshold; // update frequency
 } counter_t;
 
 typedef struct { long time; } myret_t;
 
-typedef struct { counter_t c; int thread; } myargs;
+typedef struct { counter_t* c; int thread; } myargs;
 
 // init: record threshold, init locks, init values
 // of all local counts and global count
