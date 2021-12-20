@@ -41,11 +41,6 @@ int List_Insert(list_t *L, int key) {
     Pthread_mutex_init(&new->lock, NULL);
     
     Pthread_mutex_lock(&L->head->lock);
-    if (List_Lookup(L,key) == -1) {
-        Pthread_mutex_unlock(&L->head->lock);
-        return -1;
-    }
-    Pthread_mutex_lock(&L->head->lock);
     new->next = L->head;
     L->head = new;
     Pthread_mutex_unlock(&L->head->lock);
@@ -54,6 +49,7 @@ int List_Insert(list_t *L, int key) {
 
 int List_Lookup(list_t *L, int key) {
     node_t *curr = L->head;
+    Pthread_mutex_lock(&curr->lock);
     node_t *tmp;
     while (curr) {
         if (curr->key == key) {
@@ -80,7 +76,7 @@ void *worker(void *arg) {
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < loop; i++)
     {
-        List_Insert(l, rand()%100);
+        List_Lookup(l, rand()%100);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
@@ -134,6 +130,10 @@ int main(int argc, char*argv[]) {
     list_t *count = malloc(sizeof(list_t));
     assert(count != NULL);
     List_Init(count);
+    for(int i = 0; i < 100; i++)
+    {
+        List_Insert(count, rand()%100);
+    }
 
     if(tAnz == 2) {
         pthread_t p1,p2;

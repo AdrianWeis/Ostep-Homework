@@ -33,10 +33,6 @@ void List_Init(list_t *L) {
 
 int List_Insert(list_t *L, int key) {
     Pthread_mutex_lock(&L->lock);
-    if (List_Lookup(L,key) == -1) {
-        Pthread_mutex_unlock(&L->lock);
-        return -1;
-    }
     node_t *new = malloc(sizeof(node_t));
     if (new == NULL) {
         perror("malloc");
@@ -51,23 +47,23 @@ int List_Insert(list_t *L, int key) {
 }
 
 int List_Lookup(list_t *L, int key) {
-    //Pthread_mutex_lock(&L->lock);
+    Pthread_mutex_lock(&L->lock);
     node_t *curr = L->head;
-    while (curr) {
+    while (curr!= NULL) {
         if (curr->key == key) {
-            //Pthread_mutex_unlock(&L->lock);
+            Pthread_mutex_unlock(&L->lock);
             return 0; // success
         }
         curr = curr->next;
     }
-    //Pthread_mutex_unlock(&L->lock);
+    Pthread_mutex_unlock(&L->lock);
     return -1; // failure
 }
 
 void List_Print(list_t *L) {
     Pthread_mutex_lock(&L->lock);
     node_t *curr = L->head;
-    while (curr) {
+    while (curr!= NULL) {
         printf("%d\n", curr->key);
         curr = curr->next;
     }
@@ -77,7 +73,7 @@ void List_Print(list_t *L) {
 void List_Free(list_t *L) {
     Pthread_mutex_lock(&L->lock);
     node_t *curr = L->head;
-    while (curr) {
+    while (curr!= NULL) {
         node_t *temp = curr;
         curr = curr->next;
         free(temp);
@@ -96,12 +92,9 @@ void *worker(void *arg) {
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < loop; i++)
     {
-        int print = List_Insert(l, rand()%100);
-        printf("%d\n", print);
+        List_Lookup(l, rand()%100);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
-
-    List_Print(l);
 
     rvals->time = calcTime(start,end,loop);
     return (void *) rvals;
@@ -122,6 +115,10 @@ int main(int argc, char*argv[]) {
     list_t *count = malloc(sizeof(list_t));
     assert(count != NULL);
     List_Init(count);
+    for(int i = 0; i < 100; i++)
+    {
+        List_Insert(count, rand()%100);
+    }
 
     if(tAnz == 2) {
         pthread_t p1,p2;
