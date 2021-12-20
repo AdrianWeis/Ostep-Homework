@@ -48,7 +48,7 @@ void *worker(void *arg) {
     assert(rvals != NULL);
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
-    for(int i = 0; i < &loop; i++)
+    for(int i = 0; i < loop; i++)
     {
         increment(c);
     }
@@ -67,13 +67,11 @@ int main(int argc, char*argv[]) {
     }
     
     int tAnz = atoi(argv[1]);
+    if (tAnz > 4 || tAnz < 1) {     
+        tAnz = 1;
+    }
 
     printf("Number of CPUs: %ld\n", sysconf(_SC_NPROCESSORS_CONF));
-
-    /*cpu_set_t mask;
-    CPU_ZERO(&mask);
-    CPU_SET(1, &mask);
-    sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask); */
 
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
@@ -84,7 +82,6 @@ int main(int argc, char*argv[]) {
 
     if(tAnz == 2) {
         pthread_t p1,p2;
-        *loop = LOOPS/tAnz;
 
         myret_t *rvals1;
         myret_t *rvals2;
@@ -150,7 +147,6 @@ int main(int argc, char*argv[]) {
         free(rvals4);
     } else {
         pthread_t p1;
-        *loop = LOOPS/1;
         
         myret_t *rvals1;
         Pthread_create(&p1, NULL, worker, arg);
