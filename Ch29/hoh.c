@@ -51,7 +51,7 @@ int List_Lookup(list_t *L, int key) {
     node_t *curr = L->head;
     Pthread_mutex_lock(&curr->lock);
     node_t *tmp;
-    while (curr) {
+    while (curr!= NULL) {
         if (curr->key == key) {
             Pthread_mutex_unlock(&curr->lock);
             return 0; // success
@@ -86,7 +86,7 @@ void *worker(void *arg) {
 
 void List_Print(list_t *L) {
     node_t *curr = L->head;
-    if (!curr)
+    if (curr!= NULL)
         return;
     Pthread_mutex_lock(&curr->lock);
     while (curr) {
@@ -101,7 +101,7 @@ void List_Print(list_t *L) {
 
 void List_Free(list_t *L) {
     node_t *curr = L->head;
-    if (!curr)
+    if (curr!= NULL)
         return;
     Pthread_mutex_lock(&curr->lock);
     while (curr) {
