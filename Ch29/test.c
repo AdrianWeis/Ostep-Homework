@@ -11,9 +11,10 @@ void *mythread(void *arg) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
+int main() {
     pthread_t p;
     myarg_t args = { 10, 20 };
     Pthread_create(&p, NULL, mythread, &args);
     Pthread_join(&p, NULL);
+    return 0;
 }

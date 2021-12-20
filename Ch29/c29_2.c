@@ -76,7 +76,7 @@ int main()
     init(count);
     long *rvals;
     //int loops = LOOPS;
-    Pthread_create(&p, NULL, worker, &count);
+    Pthread_create(&p, NULL, worker, count);
     
     Pthread_join(p, (void **) &rvals);
     printf("Average Increment: %ld ns\n", *rvals);
