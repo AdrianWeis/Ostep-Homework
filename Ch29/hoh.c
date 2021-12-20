@@ -225,11 +225,11 @@ int main(int argc, char*argv[]) {
         Pthread_join(p3, (void **) &rvals3);
         Pthread_join(p4, (void **) &rvals4);
         
-        printf("Average Increment Time p1: %ld ns\n", rvals1->time);
-        printf("Average Increment Time p2: %ld ns\n", rvals2->time);
+        /* printf("Average lookup p1: %ld ns\n", rvals1->time);
+        printf("Average lookup Time p2: %ld ns\n", rvals2->time);
         printf("Average Increment Time p3: %ld ns\n", rvals3->time);
-        printf("Average Increment Time p4: %ld ns\n", rvals4->time);
-        printf("Average with in the threads: %ld\n", (rvals4->time+rvals1->time+rvals2->time+rvals3->time)/tAnz);
+        printf("Average Increment Time p4: %ld ns\n", rvals4->time); */
+        printf("Average lookup with 4: %ld\n", (rvals4->time+rvals1->time+rvals2->time+rvals3->time)/tAnz);
         free(rvals1);
         free(rvals2);
         free(rvals3);
@@ -249,11 +249,10 @@ int main(int argc, char*argv[]) {
         Pthread_create(&p1, NULL, worker, arg1);
         Pthread_join(p1, (void **) &rvals1);
         
-        printf("Average Increment Time with one thread: %ld ns\n", rvals1->time);
+        printf("Average lookup: %ld ns\n", rvals1->time);
         free(rvals1);
         free(arg1);
     }
-    List_Print(count);
     List_Free(count);
     return 0;
 }

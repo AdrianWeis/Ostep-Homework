@@ -234,11 +234,10 @@ int main(int argc, char*argv[]) {
         Pthread_create(&p1, NULL, worker, arg1);
         Pthread_join(p1, (void **) &rvals1);
         
-        printf("Average Insert Time with one thread: %ld ns\n", rvals1->time);
+        printf("Average lookup: %ld ns\n", rvals1->time);
         free(rvals1);
         free(arg1);
     }
-    List_Print(count);
     List_Free(count);
     return 0;
 }
