@@ -13,8 +13,11 @@ void init(counter_t *c) {
 }
 
 void increment(counter_t *c) {
+    printf("I am before the lock\n");
     Pthread_mutex_lock(&c->lock);
+    printf("I am before the increment\n");
     c->value++;
+    printf("I am before the increment\n");
     Pthread_mutex_unlock(&c->lock);
 }
 
@@ -42,8 +45,8 @@ void *worker(void *arg) {
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < LOOPS; i++)
     {
-        if(i%100 == 0){
-            printf("I am in mod 100 of the loop\n");
+        if(i%10 == 0){
+            printf("I am in mod 10 of the loop\n");
         }
         increment(c);
     }
