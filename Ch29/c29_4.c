@@ -21,7 +21,7 @@ typedef struct myargs {
 void initArg(myargs* arg,list_t *l, int tAnz)
 {
     arg->l = l;
-    arg->loop = LOOPS/tAnz;
+    arg->loop = 1000;//LOOPS/tAnz;
 }
 
 typedef struct { long time; } myret_t;
@@ -74,7 +74,7 @@ void *worker(void *arg) {
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < loop; i++)
     {
-        List_Insert(l, rand()%1000);
+        List_Insert(l, rand()%100);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 

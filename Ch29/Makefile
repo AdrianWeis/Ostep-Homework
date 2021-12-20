@@ -9,7 +9,7 @@ STD = c11
 CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic -pthread
 
 
-all: c29_2 c29_3 c29_4 hoh.c test
+all: c29_2 c29_3 c29_4 hoh test
 
 clean:
 	rm -f c29_2 c29_3 c29_4 hoh test
