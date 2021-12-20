@@ -15,6 +15,7 @@
 
 #define BILLION 1000000000
 #define LOOPS 1000000
+#define NUMCPUS 40//sysconf(_SC_NPROCESSORS_CONF)
 
 #ifdef __linux__
 #include <semaphore.h>

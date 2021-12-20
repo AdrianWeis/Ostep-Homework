@@ -3,8 +3,8 @@
 typedef struct __counter_t {
     int global; // global count
     pthread_mutex_t glock; // global lock
-    int local[sysconf(_SC_NPROCESSORS_CONF)]; // per-CPU count
-    pthread_mutex_t llock[sysconf(_SC_NPROCESSORS_CONF)]; // ... and locks
+    int local[NUMCPUS]; // per-CPU count
+    pthread_mutex_t llock[NUMCPUS]; // ... and locks
     int threshold; // update frequency
 } counter_t;
 
