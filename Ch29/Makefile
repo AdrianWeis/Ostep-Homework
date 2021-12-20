@@ -9,10 +9,13 @@ STD = c11
 CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic -pthread
 
 
-all: c29_2
+all: c29_2 c29_3
 
 clean:
 	rm -f c29_2
 
-c29_2: c29_2.c
+c29_2: c29_2.c c29.h
 	$(CC) -o c29_2 c29_2.c $(CFLAGS)
+
+c29_3: c29_3.c c29.h
+	$(CC) -o c29_3 c29_3.c $(CFLAGS)

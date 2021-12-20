@@ -1,18 +1,4 @@
-#define _GNU_SOURCE
-
-#include <stdio.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <time.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <sched.h>
-
-#define BILLION 1000000000
-#define LOOPS 10000
+#include "c29.h"
 
 typedef struct __counter_t {
     int value;
@@ -22,25 +8,25 @@ typedef struct __counter_t {
 
 void init(counter_t *c) {
     c->value = 0;
-    pthread_mutex_init(&c->lock, NULL);
+    Pthread_mutex_init(&c->lock, NULL);
 }
 
 void increment(counter_t *c) {
-    pthread_mutex_lock(&c->lock);
+    Pthread_mutex_lock(&c->lock);
     c->value++;
-    pthread_mutex_unlock(&c->lock);
+    Pthread_mutex_unlock(&c->lock);
 }
 
 void decrement(counter_t *c) {
-    pthread_mutex_lock(&c->lock);
+    Pthread_mutex_lock(&c->lock);
     c->value--; 
-    pthread_mutex_unlock(&c->lock);
+    Pthread_mutex_unlock(&c->lock);
 }
 
 int get(counter_t *c) {
-    pthread_mutex_lock(&c->lock);
+    Pthread_mutex_lock(&c->lock);
     int rc = c->value;
-    pthread_mutex_unlock(&c->lock);
+    Pthread_mutex_unlock(&c->lock);
     return rc;
 }
 
@@ -64,6 +50,7 @@ void *worker(void *arg) {
     struct timespec start,end;
     counter_t *c = (counter_t*) arg;
     long* rvals = malloc(sizeof(long));
+    assert(rvals != NULL);
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < LOOPS; i++)
@@ -88,12 +75,15 @@ int main()
 
     pthread_t p;
     counter_t *c = malloc(sizeof(counter_t));
+    assert(c != NULL);
     init(c);
     long *rvals;
+    int error = 0;
     //int loops = LOOPS;
-    pthread_create(&p, NULL, worker, &c);
-    pthread_join(p, (void **) &rvals);
-    printf("returned %ld ns\n", *rvals);
+    Pthread_create(&p, NULL, worker, &c);
+    
+    Pthread_join(p, (void **) &rvals);
+    printf("Average Increment: %ld ns\n", *rvals);
     free(rvals);
     return 0;
 
