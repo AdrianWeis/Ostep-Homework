@@ -1,4 +1,5 @@
 #include "c29.h"
+#include <stdio.h>
 
 typedef struct __counter_t {
     int value;
@@ -36,12 +37,19 @@ void *worker(void *arg) {
     long* rvals = malloc(sizeof(long));
     assert(rvals != NULL);
 
+    printf("I am before the loop\n");
+
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < LOOPS; i++)
     {
+        if(i%100 == 0){
+            printf("I am in mod 100 of the loop\n");
+        }
         increment(c);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
+
+    printf("I am after the loop\n");
 
     long temp = calcTime(start,end,LOOPS);
     rvals = &temp;
