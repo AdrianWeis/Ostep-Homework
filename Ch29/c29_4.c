@@ -83,6 +83,28 @@ void *worker(void *arg) {
     return (void *) rvals;
 }
 
+static void List_Print(list_t *L) {
+    Pthread_mutex_lock(&L->lock);
+    node_t *curr = L->head;
+    while (curr) {
+        printf("%d\n", curr->key);
+        curr = curr->next;
+    }
+    Pthread_mutex_unlock(&L->lock);
+}
+
+static void List_Free(list_t *L) {
+    Pthread_mutex_lock(&L->lock);
+    node_t *curr = L->head;
+    while (curr) {
+        node_t *temp = curr;
+        curr = curr->next;
+        free(temp);
+    }
+    Pthread_mutex_unlock(&L->lock);
+    free(L);
+}
+
 int main(int argc, char*argv[]) {
 
     if (argc != 2){
@@ -217,5 +239,7 @@ int main(int argc, char*argv[]) {
         free(rvals1);
         free(arg1);
     }
+    List_Print(count);
+    List_Free(count);
     return 0;
 }
