@@ -96,7 +96,8 @@ void *worker(void *arg) {
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
     for(int i = 0; i < loop; i++)
     {
-        List_Insert(l, rand()%100);
+        int print = List_Insert(l, rand()%100);
+        printf("%d\n", print);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
