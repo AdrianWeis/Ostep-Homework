@@ -8,7 +8,7 @@ typedef struct __counter_t {
 
 
 void init(counter_t *c) {
-    c->value = 0;
+    c->value = 2;
     Pthread_mutex_init(&c->lock, NULL);
     //Pthread_mutex_unlock(&c->lock);
 }
@@ -40,6 +40,7 @@ void *worker(void *arg) {
     counter_t *c = (counter_t*) arg;
     long* rvals = malloc(sizeof(long));
     assert(rvals != NULL);
+    printf("What are the args? counter = %d", c->value);
 
     printf("I am before the loop\n");
 
@@ -49,7 +50,7 @@ void *worker(void *arg) {
         if(i%10 == 0){
             printf("I am in mod 10 of the loop\n");
         }
-        increment(count);
+        increment(c);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
