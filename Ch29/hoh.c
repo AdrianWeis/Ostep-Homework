@@ -41,7 +41,7 @@ int List_Insert(list_t *L, int key) {
     Pthread_mutex_init(&new->lock, NULL);
     
     Pthread_mutex_lock(&L->head->lock);
-    if (List_Lookup(L,key)) {
+    if (List_Lookup(L,key) == -1) {
         Pthread_mutex_unlock(&L->head->lock);
         return -1;
     }
