@@ -64,6 +64,27 @@ int List_Lookup(list_t *L, int key) {
     return -1; // failure
 }
 
+void List_Print(list_t *L) {
+    Pthread_mutex_lock(&L->lock);
+    node_t *curr = L->head;
+    while (curr) {
+        printf("%d\n", curr->key);
+        curr = curr->next;
+    }
+    Pthread_mutex_unlock(&L->lock);
+}
+
+void List_Free(list_t *L) {
+    Pthread_mutex_lock(&L->lock);
+    node_t *curr = L->head;
+    while (curr) {
+        node_t *temp = curr;
+        curr = curr->next;
+        free(temp);
+    }
+    Pthread_mutex_unlock(&L->lock);
+    free(L);
+}
 void *worker(void *arg) {
     struct timespec start,end;
     myargs *args = (myargs*) arg;
@@ -79,30 +100,10 @@ void *worker(void *arg) {
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
+    List_Print(l);
+
     rvals->time = calcTime(start,end,loop);
     return (void *) rvals;
-}
-
-static void List_Print(list_t *L) {
-    Pthread_mutex_lock(&L->lock);
-    node_t *curr = L->head;
-    while (curr) {
-        printf("%d\n", curr->key);
-        curr = curr->next;
-    }
-    Pthread_mutex_unlock(&L->lock);
-}
-
-static void List_Free(list_t *L) {
-    Pthread_mutex_lock(&L->lock);
-    node_t *curr = L->head;
-    while (curr) {
-        node_t *temp = curr;
-        curr = curr->next;
-        free(temp);
-    }
-    Pthread_mutex_unlock(&L->lock);
-    free(L);
 }
 
 int main(int argc, char*argv[]) {
