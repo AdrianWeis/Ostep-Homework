@@ -17,7 +17,7 @@ void init(counter_t *c) {
 
 void initArg(myargs *arg, counter_t* c, int tAnz) {
     arg->c = c;
-    arg->loop = LOOPS/tAnz;
+    arg->loop = LOOPS; ///tAnz;
 }
 
 void increment(counter_t *c) {
@@ -54,7 +54,7 @@ void *worker(void *arg) {
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
-    rvals->time = calcTime(start,end,loop);
+    rvals->time = calcTime(start,end,1);//loop);
     return (void *) rvals;
 }
 
@@ -90,10 +90,10 @@ int main(int argc, char*argv[]) {
         Pthread_join(p1, (void **) &rvals1);
         Pthread_join(p2, (void **) &rvals2);
         
-        printf("Average Increment Time p1: %ld ns\n", rvals1->time);
+        /* printf("Average Increment Time p1: %ld ns\n", rvals1->time);
         printf("Average Increment Time p2: %ld ns\n", rvals2->time);
-        printf("Counter at: %d\n", count->value);
-        printf("Average with in the threads: %ld\n", (rvals1->time+rvals2->time)/tAnz);
+        printf("Counter at: %d\n", count->value); */
+        printf("Average with in the threads: %ld\n", (rvals1->time+rvals2->time));//tAnz);
         free(rvals1);
         free(rvals2);
     } else if (tAnz == 3) {
@@ -110,11 +110,11 @@ int main(int argc, char*argv[]) {
         Pthread_join(p2, (void **) &rvals2);
         Pthread_join(p3, (void **) &rvals3);
         
-        printf("Average Increment Time p1: %ld ns\n", rvals1->time);
+        /* printf("Average Increment Time p1: %ld ns\n", rvals1->time);
         printf("Average Increment Time p2: %ld ns\n", rvals2->time);
-        printf("Average Increment Time p3: %ld ns\n", rvals3->time);
-        printf("Counter at: %d\n", count->value);
-        printf("Average with in the threads: %ld\n", (rvals1->time+rvals2->time+rvals3->time)/tAnz);
+        printf("Average Increment Time p3: %ld ns\n", rvals3->time); 
+        printf("Counter at: %d\n", count->value);*/
+        printf("Average with in the threads: %ld\n", (rvals1->time+rvals2->time+rvals3->time));//tAnz);
         free(rvals1);
         free(rvals2);
         free(rvals3);
@@ -135,12 +135,12 @@ int main(int argc, char*argv[]) {
         Pthread_join(p3, (void **) &rvals3);
         Pthread_join(p4, (void **) &rvals4);
         
-        printf("Average Increment Time p1: %ld ns\n", rvals1->time);
+        /* printf("Average Increment Time p1: %ld ns\n", rvals1->time);
         printf("Average Increment Time p2: %ld ns\n", rvals2->time);
         printf("Average Increment Time p3: %ld ns\n", rvals3->time);
         printf("Average Increment Time p4: %ld ns\n", rvals4->time);
-        printf("Counter at: %d\n", count->value);
-        printf("Average with in the threads: %ld\n", (rvals4->time+rvals1->time+rvals2->time+rvals3->time)/tAnz);
+        printf("Counter at: %d\n", count->value); */
+        printf("Average with in the threads: %ld\n", (rvals4->time+rvals1->time+rvals2->time+rvals3->time));//tAnz);
         free(rvals1);
         free(rvals2);
         free(rvals3);
