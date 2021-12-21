@@ -93,8 +93,6 @@ int main(int argc, char*argv[]) {
         s = 1;
     }
 
-    printf("Threshold: %d\n", s);
-
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
     init(count,s);
