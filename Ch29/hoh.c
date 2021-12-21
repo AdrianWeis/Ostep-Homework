@@ -115,7 +115,7 @@ void List_Free(list_t *L) {
     }
 
     Pthread_mutex_lock(&curr->lock);
-    while (curr) {
+    while (curr!= NULL) {
         node_t *tempNode = curr;
         curr = curr->next;
         if (curr != NULL) {
@@ -146,7 +146,7 @@ int main(int argc, char*argv[]) {
     {
         List_Insert(count, rand()%100);
     }
-    List_Print(count);
+    //List_Print(count);
 
     if(tAnz == 2) {
         pthread_t p1,p2;

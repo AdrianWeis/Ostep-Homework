@@ -26,7 +26,7 @@ void init(counter_t *c, int threshold) {
 }
 
 void initArg(myargs * arg, counter_t * c, int thread, int tAnz) {
-    arg->loop = LOOPS/tAnz;
+    arg->loop = LOOPS;//LOOPS/tAnz;
     arg->thread = thread;
     arg->c = c;
 }
@@ -60,25 +60,26 @@ void *worker(void *arg) {
     myargs *args = (myargs*) arg;
     counter_t * c = args->c;
     int tID = args->thread;
+    int loop = args->loop;
     myret_t* rvals = malloc(sizeof(myret_t));
     assert(rvals != NULL);
 
     clock_gettime(CLOCK_MONOTONIC_RAW,&start);
-    for(int i = 0; i < LOOPS; i++)
+    for(int i = 0; i < loop; i++)
     {
         update(c,tID,1);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW,&end);
 
-    rvals->time = calcTime(start,end,LOOPS);
+    rvals->time = calcTime(start,end,loop);
     return (void *) rvals;
 }
 
 
 int main(int argc, char*argv[]) {
 
-    if (argc != 2){
-        printf("Fehlerhafteraufruf: c29_2 threadAnz\n");
+    if (argc != 3){
+        printf("Fehlerhafteraufruf: c29_2 threadAnz threshhold\n");
         return -1;
     }
     
@@ -87,16 +88,16 @@ int main(int argc, char*argv[]) {
         tAnz = 1;
     }
 
-    printf("Number of CPUs: %d\n", NUMCPUS);
+    int s = atoi(argv[2]);
+    if (s < 0) {
+        s = 1;
+    }
 
-    /*cpu_set_t mask;
-    CPU_ZERO(&mask);
-    CPU_SET(1, &mask);
-    sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask); */
+    printf("Number of CPUs: %d\n", NUMCPUS);
 
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
-    init(count,5);
+    init(count,s);
 
     if(tAnz == 2) {
         pthread_t p1,p2;
