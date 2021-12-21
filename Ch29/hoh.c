@@ -53,7 +53,7 @@ int List_Lookup(list_t *L, int key) {
     node_t *curr = L->head;
     Pthread_mutex_lock(&curr->lock);
     node_t *tmp;
-    while (curr!= NULL) {
+    while (1) {
         if (curr->key == key) {
             Pthread_mutex_unlock(&curr->lock);
             return 0; // success
@@ -61,11 +61,14 @@ int List_Lookup(list_t *L, int key) {
         
         tmp = curr;
         curr = curr->next;
+        if (curr== NULL) {
+            Pthread_mutex_unlock(&tmp->lock);
+            return -1; //gibt kein nächstes element
+            
+        }
         Pthread_mutex_lock(&curr->lock);
         Pthread_mutex_unlock(&tmp->lock);
     }
-    Pthread_mutex_unlock(&curr->lock);
-    return -1; // failure
 }
 
 void *worker(void *arg) {
@@ -89,30 +92,35 @@ void *worker(void *arg) {
 
 void List_Print(list_t *L) {
     node_t *curr = L->head;
-    if (curr!= NULL)
+    if (curr== NULL)
         return;
     Pthread_mutex_lock(&curr->lock);
-    while (curr) {
-        printf("%d", curr->key);
-        pthread_mutex_t *tempLock = &curr->lock;
+    node_t *tmp;
+    while (curr != NULL) {
+        printf("%d ", curr->key);
+        tmp = curr;
         curr = curr->next;
-        if (curr)
+        if (curr!=NULL) {
             Pthread_mutex_lock(&curr->lock);
-        Pthread_mutex_unlock(tempLock);
+        }
+        Pthread_mutex_unlock(&tmp->lock);
     }
     printf("\n");
 }
 
 void List_Free(list_t *L) {
     node_t *curr = L->head;
-    if (curr!= NULL)
+    if (curr!= NULL) {
         return;
+    }
+
     Pthread_mutex_lock(&curr->lock);
     while (curr) {
         node_t *tempNode = curr;
         curr = curr->next;
-        if (curr)
+        if (curr != NULL) {
             Pthread_mutex_lock(&curr->lock);
+        }
         Pthread_mutex_unlock(&tempNode->lock);
         free(tempNode);
     }
