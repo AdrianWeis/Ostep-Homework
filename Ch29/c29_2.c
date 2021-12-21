@@ -71,7 +71,7 @@ int main(int argc, char*argv[]) {
         tAnz = 1;
     }
 
-    printf("Number of CPUs: %ld\n", sysconf(_SC_NPROCESSORS_CONF));
+    //printf("Number of CPUs: %ld\n", sysconf(_SC_NPROCESSORS_CONF));
 
     counter_t *count = malloc(sizeof(counter_t));
     assert(count != NULL);
@@ -153,7 +153,7 @@ int main(int argc, char*argv[]) {
         Pthread_join(p1, (void **) &rvals1);
         
         printf("Average Increment Time with one thread: %ld ns\n", rvals1->time);
-        printf("Counter at: %d\n", count->value);
+        //printf("Counter at: %d\n", count->value);
         free(rvals1);
     }
     free(arg);
