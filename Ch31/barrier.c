@@ -25,26 +25,26 @@ barrier_t b;
 
 void barrier_init(barrier_t *b, int num_threads) {
     // initialization code goes here
-    sem_init(b->block, 0, 0);
-    sem_init(b->lock, 0, 1);
+    sem_init(&b->block, 0, 0);
+    sem_init(&b->lock, 0, 1);
     b->countdown = num_threads;
     b->num_thread = num_threads;
 }
 
 void barrier(barrier_t *b) {
     // barrier code goes here
-    sem_wait(b->lock);
+    sem_wait(&b->lock);
     b->countdown = b->countdown -1; 
     if (b->countdown == 0) {
         for(int i = 0; i < b->num_thread; i++) 
         {
-           sem_post(b->block); 
+           sem_post(&b->block); 
            sleep(1);
         }
         return;
     }
-    sem_post(b->lock);
-    sem_wait(b->block);
+    sem_post(&b->lock);
+    sem_wait(&b->block);
 }
 
 //
