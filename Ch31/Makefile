@@ -10,7 +10,8 @@ CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic -pthread
 TARGETS = fork-join \
 	rendezvous \
 	barrier \
-	reader-writer
+	reader-writer \
+	reader-writer-no-starve
 
 % : %.o
 	$(CC) $(CFLAGS) -o $@ $<
@@ -27,3 +28,5 @@ rendezvous.o: rendezvous.c common_threads.h
 barrier.o: barrier.c common_threads.h
 
 reader-writer.o: reader-writer.c common_threads.h
+
+reader-writer-no-starve.o: reader-writer-no-starve.c common_threads.h
