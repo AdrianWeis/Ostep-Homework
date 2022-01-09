@@ -8,7 +8,8 @@ CC = gcc
 STD = c11
 CFLAGS = -g -W -Wall -Wextra -std=$(STD) -Wpedantic -pthread
 TARGETS = fork-join \
-	rendezvous
+	rendezvous \
+	barrier
 
 % : %.o
 	$(CC) $(CFLAGS) -o $@ $<
@@ -16,8 +17,10 @@ TARGETS = fork-join \
 all: $(TARGETS)
 
 clean:
-	rm -f $(TARGETS)
+	rm -f $(TARGETS) $(TARGETS).o
 
 fork-join.o: fork-join.c common_threads.h
 
 rendezvous.o: rendezvous.c common_threads.h
+
+barrier.o: barrier.c common_threads.h
