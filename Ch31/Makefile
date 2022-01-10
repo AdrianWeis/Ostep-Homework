@@ -13,7 +13,8 @@ TARGETS = fork-join \
 	reader-writer \
 	reader-writer-no-starve \
 	rw-noStarve-block \
-	rw-no-starve
+	rw-no-starve \
+	mutex-nostarve
 
 % : %.o
 	$(CC) $(CFLAGS) -o $@ $<
@@ -36,3 +37,5 @@ reader-writer-no-starve.o: reader-writer-no-starve.c common_threads.h
 rw-noStarve-block.o: rw-noStarve-block.c common_threads.h
 
 rw-no-starve.o: rw-no-starve.c common_threads.h
+
+mutex-nostarve.o: mutex-nostarve.c common_threads.h
