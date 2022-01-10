@@ -62,15 +62,16 @@ ns_mutex_t mutex;
 
 typedef struct __tinfo_t {
     int thread_id;
+    ns_mutex_t m;
 } tinfo_t;
 
 void *worker(void *arg) {
     tinfo_t *t = (tinfo_t *) arg;
     for (int i = 0; i < loops; i++) {
         printf("T%d :before %d\n",t->thread_id, i);
-        ns_mutex_acquire(&mutex);
+        ns_mutex_acquire(&t->m);
         printf("T%d :after %d\n",t->thread_id, i);
-        ns_mutex_release(&mutex);
+        ns_mutex_release(&t->m);
     }
 
     return NULL;
@@ -92,6 +93,9 @@ int main(int argc, char *argv[]) {
     int i;
     for (i = 0; i < num_threads; i++) {
         ti[i].thread_id = i;
+        ti[i].m = mutex;
+    }
+    for (i = 0; i < num_threads; i++) {
         Pthread_create(&t[i], NULL, worker, &ti[i]);
     }
 
