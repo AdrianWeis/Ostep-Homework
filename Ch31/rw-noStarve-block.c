@@ -22,6 +22,7 @@ void rwlock_init(rwlock_t *rw) {
     sem_init(&rw->starveRead, 0, 1);//block aber irgendjemand muss starten
     sem_init(&rw->writerlock, 0, 1);
     sem_init(&rw->starveWrite, 0, 0);//block 
+}
 
 void rwlock_acquire_readlock(rwlock_t *rw) {
     sem_wait(&rw->lock);
