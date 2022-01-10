@@ -68,11 +68,11 @@ typedef struct __tinfo_t {
 } tinfo_t;
 
 void *worker(void *arg) {
+    printf("Start T%d \n",t->thread_id);
     tinfo_t *t = (tinfo_t *) arg;
     for (int i = 0; i < loops; i++) {
-        printf("T%d :before %d\n",t->thread_id, i);
         ns_mutex_acquire(&t->m);
-        printf("T%d :after %d\n",t->thread_id, i);
+        printf("T%d :Operation %d\n",t->thread_id, i);
         ns_mutex_release(&t->m);
     }
 
