@@ -86,12 +86,12 @@ int main(int argc, char *argv[]) {
     
 
     pthread_t t[num_threads];
-    tinfo_t t[num_threads];
+    tinfo_t ti[num_threads];
 
     ns_mutex_init(&mutex);
     int i;
     for (i = 0; i < num_threads; i++) {
-        t[i].thread_id = i;
+        ti[i].thread_id = i;
         Pthread_create(&t[i], NULL, worker, NULL);
     }
 
