@@ -60,16 +60,23 @@ void ns_mutex_release(ns_mutex_t *m) {
 int loops;
 ns_mutex_t mutex;
 
+typedef struct __tinfo_t {
+    int thread_id;
+} tinfo_t;
+
 void *worker(void *arg) {
+    tinfo_t *t = (tinfo_t *) arg;
     for (int i = 0; i < loops; i++) {
-        printf("before %d\n",i);
+        printf("T%d :before %d\n",t->thread_id, i);
         ns_mutex_acquire(&mutex);
-        printf("after %d\n",i);
+        printf("T%d :after %d\n",t->thread_id, i);
         ns_mutex_release(&mutex);
     }
 
     return NULL;
 }
+
+
 
 int main(int argc, char *argv[]) {
     printf("parent: begin\n");
@@ -79,14 +86,18 @@ int main(int argc, char *argv[]) {
     
 
     pthread_t t[num_threads];
+    tinfo_t t[num_threads];
 
     ns_mutex_init(&mutex);
     int i;
-    for (i = 0; i < num_threads; i++)
-	Pthread_create(&t[i], NULL, worker, NULL);
+    for (i = 0; i < num_threads; i++) {
+        t[i].thread_id = i;
+        Pthread_create(&t[i], NULL, worker, NULL);
+    }
 
-    for (i = 0; i < num_threads; i++)
-	Pthread_join(t[i], NULL);
+    for (i = 0; i < num_threads; i++) {
+        Pthread_join(t[i], NULL);
+    }
 
     printf("parent: end\n");
     return 0;
