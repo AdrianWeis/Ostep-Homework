@@ -52,7 +52,6 @@ void rwlock_acquire_readlock(rwlock_t *rw) {
         }
         
     }
-    sleep(1);
     sem_post(&rw->lock);
     sem_post(&rw->starveRead);
     
@@ -64,7 +63,6 @@ void rwlock_release_readlock(rwlock_t *rw) {
     if(rw->readers == 0){
         sem_post(&rw->writerlock);
     }
-    sleep(1);
     sem_post(&rw->lock);
 }
 
@@ -88,7 +86,6 @@ void rwlock_acquire_writelock(rwlock_t *rw) {
 
 void rwlock_release_writelock(rwlock_t *rw) {
     sem_post(&rw->writerlock);
-    sleep(1);
 }
 
 //
