@@ -15,6 +15,8 @@ typedef struct __rwlock_t {
     int readers;
     int readcounter;
     int writecounter;
+    _Bool hasWriteLock;
+    _Bool hasReadLock;
 } rwlock_t;
 
 
@@ -22,23 +24,32 @@ void rwlock_init(rwlock_t *rw) {
     rw->readers = 0;
     rw->readcounter = 0;
     rw->writecounter = 0;
+    rw->hasReadLock = 0;
+    rw->hasWriteLock = 0;
     sem_init(&rw->lock, 0, 1);
-    sem_init(&rw->starveRead, 0, 1);
+    sem_init(&rw->starveRead, 0, 1);//block anstatt lock
     sem_init(&rw->writerlock, 0, 1);
-    sem_init(&rw->starveWrite, 0, 1);
+    sem_init(&rw->starveWrite, 0, 1);//block anstatt lock
 }
 
 void rwlock_acquire_readlock(rwlock_t *rw) {
     sem_wait(&rw->lock);
     rw->readers++;
     if(rw->readers == 1) {
-        sem_wait(&rw->starveRead);
+        sem_wait(&rw->starveRead);//block anstatt lock
+        if(rw->writecounter > rw->readcounter && !rw->hasWriteLock)
+        {
+            rw->hasWriteLock = 1;
+            sem_wait(&rw->starveWrite);
+        }
         sem_wait(&rw->writerlock);
         rw->readcounter++;
-        if(rw->writecounter <= rw->readcounter)
+        if(rw->writecounter == rw->readcounter && rw->hasWriteLock)
         {
             sem_post(&rw->starveWrite);
+            rw->hasWriteLock = 0;
         }
+        sem_post(&rw->starveRead);
     }
     sleep(1);
     sem_post(&rw->lock);
@@ -56,13 +67,20 @@ void rwlock_release_readlock(rwlock_t *rw) {
 }
 
 void rwlock_acquire_writelock(rwlock_t *rw) {
-    sem_wait(&rw->starveWrite);
+    sem_wait(&rw->starveWrite); //block anstatt lock
+    if(rw->writecounter < rw->readcounter && !rw->hasReadLock)
+    {
+        rw->hasReadLock = 1;
+        sem_wait(&rw->starveRead);
+    }
     sem_wait(&rw->writerlock);
     rw->writecounter++;
-    if(rw->writecounter > rw->readcounter)
+    if(rw->writecounter == rw->readcounter&& rw->hasReadLock)
     {
         sem_post(&rw->starveRead);
+        rw->hasReadLock = 0;
     }
+    sem_post(&rw->starveWrite);
     
 }
 
