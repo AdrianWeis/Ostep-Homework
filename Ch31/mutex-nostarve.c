@@ -31,6 +31,8 @@ void ns_mutex_acquire(ns_mutex_t *m) {
     m->room1++;
     sem_post(&m->key1);
 
+    sleep(1); // threads sind zu schnell
+
     sem_wait(&m->key2);
     sem_wait(&m->key1);
     m->room1--;
