@@ -10,10 +10,12 @@
 // when attempting to acquire this mutex you build?
 //
 
-typedef __ns_mutex_t {
+typedef struct __ns_mutex_t {
     int room1;
     int room2;
-    sem_t key1, key2, crit;
+    sem_t key1;
+    sem_t key2;
+    sem_t crit;
 } ns_mutex_t;
 
 void ns_mutex_init(ns_mutex_t *m) {
@@ -60,7 +62,7 @@ ns_mutex_t mutex;
 
 void *worker(void *arg) {
     ns_mutex_t * mutex = (ns_mutex_t *) arg;
-    for (i = 0; i < loops; i++) {
+    for (int i = 0; i < loops; i++) {
         printf("before %d\n",i);
         ns_mutex_acquire(mutex);
         printf("after %d\n",i);
@@ -86,7 +88,7 @@ int main(int argc, char *argv[]) {
 
     for (i = 0; i < num_threads; i++)
 	Pthread_join(t[i], NULL);
-    
+
     printf("parent: end\n");
     return 0;
 }
