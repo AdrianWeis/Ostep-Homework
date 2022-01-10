@@ -61,12 +61,11 @@ int loops;
 ns_mutex_t mutex;
 
 void *worker(void *arg) {
-    ns_mutex_t * mutex = (ns_mutex_t *) arg;
     for (int i = 0; i < loops; i++) {
         printf("before %d\n",i);
-        ns_mutex_acquire(mutex);
+        ns_mutex_acquire(&mutex);
         printf("after %d\n",i);
-        ns_mutex_release(mutex);
+        ns_mutex_release(&mutex);
     }
 
     return NULL;
