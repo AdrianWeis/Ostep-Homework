@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
     int i;
     for (i = 0; i < num_threads; i++) {
         ti[i].thread_id = i;
-        Pthread_create(&t[i], NULL, worker, NULL);
+        Pthread_create(&t[i], NULL, worker, &ti[i]);
     }
 
     for (i = 0; i < num_threads; i++) {
