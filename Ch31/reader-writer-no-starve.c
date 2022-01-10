@@ -33,14 +33,15 @@ void rwlock_init(rwlock_t *rw) {
 }
 
 void rwlock_acquire_readlock(rwlock_t *rw) {
+    sem_wait(&rw->starveRead);
     sem_wait(&rw->lock);
     rw->readers++;
     if(rw->readers == 1) {
-        sem_wait(&rw->starveRead);//block anstatt lock
+        //block anstatt lock
         if(rw->writecounter > rw->readcounter && !rw->hasWriteLock)
         {
-            rw->hasWriteLock = 1;
             sem_wait(&rw->starveWrite);
+            rw->hasWriteLock = 1;
         }
         sem_wait(&rw->writerlock);
         rw->readcounter++;
@@ -49,10 +50,11 @@ void rwlock_acquire_readlock(rwlock_t *rw) {
             sem_post(&rw->starveWrite);
             rw->hasWriteLock = 0;
         }
-        sem_post(&rw->starveRead);
+        
     }
     sleep(1);
     sem_post(&rw->lock);
+    sem_post(&rw->starveRead);
     
 }
 
@@ -70,8 +72,8 @@ void rwlock_acquire_writelock(rwlock_t *rw) {
     sem_wait(&rw->starveWrite); //block anstatt lock
     if(rw->writecounter < rw->readcounter && !rw->hasReadLock)
     {
-        rw->hasReadLock = 1;
         sem_wait(&rw->starveRead);
+        rw->hasReadLock = 1;
     }
     sem_wait(&rw->writerlock);
     rw->writecounter++;
