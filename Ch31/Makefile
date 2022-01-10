@@ -12,7 +12,8 @@ TARGETS = fork-join \
 	barrier \
 	reader-writer \
 	reader-writer-no-starve \
-	rw-noStarve-block
+	rw-noStarve-block \
+	rw-no-starve
 
 % : %.o
 	$(CC) $(CFLAGS) -o $@ $<
@@ -33,3 +34,5 @@ reader-writer.o: reader-writer.c common_threads.h
 reader-writer-no-starve.o: reader-writer-no-starve.c common_threads.h
 
 rw-noStarve-block.o: rw-noStarve-block.c common_threads.h
+
+rw-no-starve.o: rw-no-starve.c common_threads.h
